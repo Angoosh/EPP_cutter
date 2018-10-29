@@ -1,2 +1,4 @@
 # EPP_cutter
-Maturitni projekt
+Final exam project
+Contains controlling app  
+

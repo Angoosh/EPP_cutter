@@ -1,4 +1,4 @@
 # EPP_cutter
-Final exam project
+Final exam project\n
 Contains controlling app  
 

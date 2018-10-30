@@ -103,8 +103,8 @@ class Widgets(FloatLayout):
                 b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
                 x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
                 ser.write(x)
-            
-            print("heat off")
+            send = Gcode.M104(0)[1]
+            ser.write(send)
 
 #fukce pro nastaveni feedrate pro vsechny osy        
         def sett(btn):
@@ -226,8 +226,9 @@ class Widgets(FloatLayout):
                     self.terminal.text += "Command must be in form: M104 S\n"
                     return
                 temp = int(i[a+1:])
-                heat = Gcode.M104(temp)
+                heat, send = Gcode.M104(temp)
                 print(heat)
+                ser.write(send)
                 self.terminal.text += i + "\n"
                 self.command.text = ""
             elif i.find("MST") != -1:
@@ -267,6 +268,7 @@ class Widgets(FloatLayout):
                     self.terminal.text += "Enter port!\n"
             else:
                 ser.close()
+                ser = Exceptions()
                 self.portButt.text = "Connect"
                 self.portButt.size_hint = (.08, .05)
                 self.terminal.text += "Disconnected\n"

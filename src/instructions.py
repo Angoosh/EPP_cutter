@@ -76,3 +76,13 @@ def SAP(typ, motor, value):
     return(5, typ, motor, val3, val2, val1, val0)
 def GAP(typ, motor):
     return(6, typ, motor, 0, 0, 0, 0)
+def SIO(out, value):
+    if value == True:
+        value = 1
+    else:
+        value = 0
+    return(14, out, 2, 0, 0, 0, value)
+def GIO(port, bank):
+    return(15, port, bank, 0, 0, 0, 0)
+
+

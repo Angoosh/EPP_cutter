@@ -78,5 +78,12 @@ def G91():
     return(mode)
         
 def M104(temp):
-    return(temp)
+    if temp != 0:
+        s = True
+    else:
+        s = False
+    b2,b3,b4,b5,b6,b7,b8 = i.SIO(0, s)
+    b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
+    x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
+    return(temp, x)
     

@@ -30,6 +30,7 @@ import os
 mode = config.glob()[0]
 travel = config.glob()[1]
 negtravel = config.glob()[2]
+serport = ""
     #promenne pro kontrolu, zda prislusna osa jede
 x1 = 0
 y1 = 0
@@ -218,11 +219,16 @@ class Widgets(FloatLayout):
 #funkce pro nacteni gcodu
         def gcoload(btn):
             global file
+            s = self.gco.text
             try:
-                with open(self.gco.text) as f:
-                    content = f.read()
-                    self.terminal.text += "Gcode loaded\n"
-                    print(content)
+                if (".g" in s) or (".gco" in s) or (".gcode" in s):
+                    with open(s) as f:
+                        file = self.gco.text
+                        content = f.read()
+                        self.terminal.text += "Gcode loaded\n"
+                        print(content)
+                else:
+                    self.terminal.text += "Not a gcode\n"
             except:
                 self.terminal.text += "Path: "+self.gco.text+" does not exist\n"
                 
@@ -234,7 +240,7 @@ class Widgets(FloatLayout):
             except:
                 self.terminal.text += "No file loaded\n"
             try:
-                if len(ser) > 2:
+                if len(serport) > 2:
                     pass
             except:
                 self.terminal.text += "No connection to serial\n"
@@ -356,6 +362,7 @@ class Widgets(FloatLayout):
 #funkce nastaveni portu        
         def port(instance):
             global ser
+            global serport
             if self.portButt.state == "down":
                 self.portButt.text = "Disconnect"
                 self.portButt.size_hint = (.1, .05)
@@ -367,6 +374,7 @@ class Widgets(FloatLayout):
                         self.terminal.text += "Connected to: "+ser.name+"\n"
                         #global ser
                         ser = ser
+                        serport = self.port.text
                         return ser
                         #ser = connection(self.port.text)
                     else:

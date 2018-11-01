@@ -37,7 +37,8 @@ x1 = 0
 y1 = 0
 z1 = 0
 a1 = 0
-
+    #promenne pro zobrazeni nastavene hodnoty os
+x2, y2, z2, a2 = 0, 0, 0, 0
 
 #funkce cekani na dojeti motoru na pozici
 def wait_until_reached():
@@ -83,106 +84,122 @@ class Widgets(FloatLayout):
             
 #funkce pro pohybova tlacitka
         def Xa(instance):
-            global x1
+            global x1, x2
             b2, b3, b4, b5, b6, b7, b8 = i.MVP("REL", 0, travel)
             b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
             x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
             if x1 == 0:
                 x1 = 1
+                x2 = x2 + travel
                 ser.write(bytearray([1,138,0,0,0,0,0,1,140]))
                 ser.write(x)
                 Thread(target = wait_until_reached).start()
                 self.terminal.text += "axis X ascend: " + str(travel) +"mm\n"
+                self.xTravel.text = str(x2)
             else:
                 self.terminal.text += "axis X already moving\n"
         def Xd(instance):
-            global x1
+            global x1, x2
             b2, b3, b4, b5, b6, b7, b8 = i.MVP("REL", 0, negtravel)
             b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
             x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
             if x1 == 0:
                 x1 = 1
+                x2 = x2 - travel
                 ser.write(bytearray([1,138,0,0,0,0,0,1,140]))
                 ser.write(x)
                 Thread(target = wait_until_reached).start()
+                self.xTravel.text = str(x2)
                 self.terminal.text += "axis X descend: " + str(travel) +"mm\n"
             else:
                 self.terminal.text += "axis X already moving\n"
         def Ya(instance):
-            global y1
+            global y1, y2
             b2, b3, b4, b5, b6, b7, b8 = i.MVP("REL", 1, travel)
             b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
             x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
             if y1 == 0:
                 y1 = 1
+                y2 = y2 + travel
                 ser.write(bytearray([1,138,0,0,0,0,0,2,141]))
                 ser.write(x)
                 Thread(target = wait_until_reached).start()
+                self.yTravel.text = str(y2)
                 self.terminal.text += "axis Y ascend: " + str(travel) +"mm\n"
             else:
                 self.terminal.text += "axis Y already moving\n"
         def Yd(instance):
-            global y1
+            global y1, y2
             b2, b3, b4, b5, b6, b7, b8 = i.MVP("REL", 1, negtravel)
             b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
             x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
             if y1 == 0:
                 y1 = 1
+                y2 = y2 - travel
                 ser.write(bytearray([1,138,0,0,0,0,0,2,141]))
                 ser.write(x)
                 Thread(target = wait_until_reached).start()
+                self.yTravel.text = str(y2)
                 self.terminal.text += "axis Y descend: " + str(travel) +"mm\n"
             else:
                 self.terminal.text += "axis Y already moving\n"
         def Za(instance):
-            global z1
+            global z1, z2
             b2, b3, b4, b5, b6, b7, b8 = i.MVP("REL", 2, travel)
             b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
             x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
             if z1 == 0:
                 z1 = 1
+                z2 = z2 + travel
                 ser.write(bytearray([1,138,0,0,0,0,0,4,143]))
                 ser.write(x)
                 Thread(target = wait_until_reached).start()
+                self.zTravel.text = str(z2)
                 self.terminal.text += "axis Z ascend: " + str(travel) +"mm\n"
             else:
                 self.terminal.text += "axis Z already moving\n"
         def Zd(instance):
-            global z1
+            global z1, z2
             b2, b3, b4, b5, b6, b7, b8 = i.MVP("REL", 2, negtravel)
             b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
             x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
             if z1 == 0:
                 z1 = 1
+                z2 = z2 - travel
                 ser.write(bytearray([1,138,0,0,0,0,0,4,143]))
                 ser.write(x)
                 Thread(target = wait_until_reached).start()
+                self.zTravel.text = str(z2)
                 self.terminal.text += "axis Z descend: " + str(travel) +"mm\n"
             else:
                 self.terminal.text += "axis Z already moving\n"
         def Aa(instance):
-            global a1
+            global a1, a2
             b2, b3, b4, b5, b6, b7, b8 = i.MVP("REL", 3, travel)
             b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
             x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
             if a1 == 0:
                 a1 = 1
+                a2 = a2 + travel
                 ser.write(bytearray([1,138,0,0,0,0,0,8,147]))
                 ser.write(x)
                 Thread(target = wait_until_reached).start()
+                self.aTravel.text = str(a2)
                 self.terminal.text += "axis A ascend: " + str(travel) +"mm\n"
             else:
                 self.terminal.text += "axis A already moving"
         def Ad(instance):
-            global a1
+            global a1, a2
             b2, b3, b4, b5, b6, b7, b8 = i.MVP("REL", 3, negtravel)
             b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
             x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
             if a1 == 0:
                 a1 = 1
+                a2 = a2 - travel
                 ser.write(bytearray([1,138,0,0,0,0,0,8,147]))
                 ser.write(x)
                 Thread(target = wait_until_reached).start()
+                self.aTravel.text = str(a2)
                 self.terminal.text += "axis A descend: " + str(travel) +"mm\n"
             else:
                 self.terminal.text += "axis A already moving\n"
@@ -271,17 +288,23 @@ class Widgets(FloatLayout):
                     pass
             except:
                 self.terminal.text += "No connection to serial\n"
-            sendComm()
-            self.terminal.text += "Starting sender\n"
-            sleep(1)
-            self.terminal.text += "Passing instruction to sender\n"
             try:
-                self.terminal.text += "Cutting started\n"
-                Thread(target = openSender).start()
-                
-                
+                sendComm()
+                self.terminal.text += "Starting sender\n"
+                sleep(1)
+                self.terminal.text += "Passing instruction to sender\n"
+                self.xTravel.text = "0"
+                self.yTravel.text = "0"
+                self.zTravel.text = "0"
+                self.aTravel.text = "0"
+                try:
+                    self.terminal.text += "Cutting started\n"
+                    Thread(target = openSender).start()
+                except:
+                    self.terminal.text += "No sender program\n"
             except:
-                self.terminal.text += "No sender program\n"
+                self.terminal.text += "Cutting not possible\n"
+            
 #funkce vycisteni terminalu                
         def clr(instance):
             self.terminal.text = ""
@@ -463,7 +486,7 @@ class Widgets(FloatLayout):
         self.add_widget(
                 Label(text = "ZA", color=(0,0,0,255), pos = (950, 150), size_hint = (.07, .07), font_size = 40, bold = True))        
         self.add_widget(
-                Button(background_normal = "./images/upArrow.png", background_down = "./images/upArrowPressed.png", on_press = Ya, font_size = 40, size_hint=(.09, .16), pos = (120, 120))) #x=115.2px
+                Button(background_normal = "./images/upArrow.png", background_down = "./images/upArrowPressed.png", on_press = Ya, font_size = 40, size_hint=(.09, .16), pos = (120, 120)))
         self.add_widget(
                 Button(background_normal = "./images/dwnArrow.png", background_down = "./images/dwnArrowPressed.png", on_press = Yd, font_size = 40, size_hint=(.09, .16), pos = (120, 5)))
         self.add_widget(
@@ -478,6 +501,26 @@ class Widgets(FloatLayout):
                 Button(background_normal = "./images/rightArrow.png", background_down = "./images/rightArrowPressed.png", on_press = Za, font_size = 40, size_hint=(.09, .16), pos = (1160, 5)))
         self.add_widget(
                 Button(background_normal = "./images/leftArrow.png", background_down = "./images/leftArrowPressed.png", on_press = Zd, font_size = 40, size_hint=(.09, .16), pos = (930, 5)))
+
+#indikatory pozic
+        self.xTravel = TextInput(text = "0", size_hint=(.06, .05), pos=(550, 600), font_size=20, readonly=True)
+        self.add_widget(self.xTravel)
+        self.yTravel = TextInput(text = "0", size_hint=(.06, .05), pos=(640, 600), font_size=20, readonly=True)
+        self.add_widget(self.yTravel)
+        self.zTravel = TextInput(text = "0", size_hint=(.06, .05), pos=(730, 600), font_size=20, readonly=True)
+        self.add_widget(self.zTravel)
+        self.aTravel = TextInput(text = "0", size_hint=(.06, .05), pos=(820, 600), font_size=20, readonly=True)
+        self.add_widget(self.aTravel)
+        self.add_widget(
+                Label(text = "Set axis positions", color=(0,0,0,255), pos = (670, 660), size_hint = (.07, .07), font_size = 20, bold = True))
+        self.add_widget(
+                Label(text = "X", color=(0,0,0,255), pos = (550, 630), size_hint = (.06, .07), font_size = 20, bold = True))
+        self.add_widget(
+                Label(text = "Y", color=(0,0,0,255), pos = (640, 630), size_hint = (.06, .07), font_size = 20, bold = True))
+        self.add_widget(
+                Label(text = "Z", color=(0,0,0,255), pos = (730, 630), size_hint = (.06, .07), font_size = 20, bold = True))
+        self.add_widget(
+                Label(text = "A", color=(0,0,0,255), pos = (820, 630), size_hint = (.06, .07), font_size = 20, bold = True))
         
 #Stop tacitko
         self.add_widget(

@@ -23,7 +23,8 @@ from Gcode import connection
 import instructions as i
 from byteparams import parameter as par
 import os
-
+import pickle
+from time import sleep
 
 
 #nacitani konfiguracnich promennych do globalnich promennych
@@ -58,6 +59,15 @@ def wait_until_reached():
             x1 = y1 = z1 = a1 = 0
             break        
 
+#funkce otevreni senderu jako novy thread
+def openSender():
+    os.system("python3 sender.py")
+
+def sendComm():
+    f = open("comm.pickle", "wb")
+    pickle.dump(serport, f)
+    pickle.dump(file, f)
+    f.close()
 #trida pro nahrazeni ser.write(), kdyz bude port nedostupny
 class Exceptions:
     def write(self,byte):
@@ -181,14 +191,31 @@ class Widgets(FloatLayout):
         def STOP(instance):
             print("RESET!!")
             self.terminal.text += "Reset\n"
+            try:
+                f = open("comm.pickle", "rb")
+                pid = pickle.load(f)
+                f.close()
+                
+                os.system("rm comm.pickle")
+                os.system("kill "+str(pid))
+            except:
+                print("no comm.pickle")
             
             for motor in range (0,4):
                 b2,b3,b4,b5,b6,b7,b8 = i.MST(motor)
                 b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
                 x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
                 ser.write(x)
+                sleep(0.001)
+                b2, b3, b4, b5, b6, b7, b8 = i.SAP(1,motor,0)
+                b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
+                p = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
+                ser.write(p)
+                sleep(0.001)
+            sleep(0.001)
             send = Gcode.M104(0)[1]
             ser.write(send)
+            
 
 #fukce pro nastaveni feedrate pro vsechny osy        
         def sett(btn):
@@ -244,8 +271,15 @@ class Widgets(FloatLayout):
                     pass
             except:
                 self.terminal.text += "No connection to serial\n"
+            sendComm()
+            self.terminal.text += "Starting sender\n"
+            sleep(1)
+            self.terminal.text += "Passing instruction to sender\n"
             try:
-                os.system("python sender.py")
+                self.terminal.text += "Cutting started\n"
+                Thread(target = openSender).start()
+                
+                
             except:
                 self.terminal.text += "No sender program\n"
 #funkce vycisteni terminalu                
@@ -284,8 +318,11 @@ class Widgets(FloatLayout):
                     return
                 x, y, z, a = Gcode.G0(xx, yy, zz, aa)
                 ser.write(x)
+                sleep(0.001)
                 ser.write(y)
+                sleep(0.001)
                 ser.write(z)
+                sleep(0.001)
                 ser.write(a)
                 self.terminal.text += i + "\n"
                 self.command.text = ""
@@ -308,8 +345,11 @@ class Widgets(FloatLayout):
                     return
                 x, y, z, a = Gcode.G1(xx, yy, zz, aa)
                 ser.write(x)
+                sleep(0.001)
                 ser.write(y)
+                sleep(0.001)
                 ser.write(z)
+                sleep(0.001)
                 ser.write(a)
                 self.terminal.text += i + "\n"
                 self.command.text = ""
@@ -317,8 +357,11 @@ class Widgets(FloatLayout):
                 print("G28")
                 x, y, z, a = Gcode.G28()
                 ser.write(x)
+                sleep(0.001)
                 ser.write(y)
+                sleep(0.001)
                 ser.write(z)
+                sleep(0.001)
                 ser.write(a)
                 self.terminal.text += i + "\n"
                 self.command.text = ""

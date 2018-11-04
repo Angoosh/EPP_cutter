@@ -1,7 +1,10 @@
 #instrukcni sada desky TMCM 6110 - pouzivane instrukce
-motorsteps = 200
-microstepping = 256
-screwpitch = 4          #screw pitch in mm
+import config
+
+#prevod mm-kroky
+motorsteps = config.glob()[3]
+microstepping = config.glob()[4]
+screwpitch = config.glob()[5]
 
 stepsmm = int((motorsteps*microstepping)/screwpitch)
 
@@ -30,7 +33,7 @@ def ROL(motor, value):
     val3 = int(val[0:2],16)
     return(2, 0, motor,val3, val2, val1, val0)
 def MST(motor):
-	return(3, 0, motor, 0, 0, 0, 0)
+    return(3, 0, motor, 0, 0, 0, 0)
 def MVP(typ, motor, value):
     value = int(value*stepsmm)
     if value < 0:
@@ -84,5 +87,3 @@ def SIO(out, value):
     return(14, out, 2, 0, 0, 0, value)
 def GIO(port, bank):
     return(15, port, bank, 0, 0, 0, 0)
-
-

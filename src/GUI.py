@@ -88,22 +88,22 @@ class Widgets(FloatLayout):
             b2, b3, b4, b5, b6, b7, b8 = i.MVP("REL", 0, travel)
             b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
             x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
-            if x1 == 0:
+            x2 = x2 + travel
+            if (x1 == 0) and (x2 <= 900):
                 x1 = 1
-                x2 = x2 + travel
                 ser.write(bytearray([1,138,0,0,0,0,0,1,140]))
                 ser.write(x)
                 Thread(target = wait_until_reached).start()
                 self.terminal.text += "axis X ascend: " + str(travel) +"mm\n"
                 self.xTravel.text = str(x2)
             else:
-                self.terminal.text += "axis X already moving\n"
+                self.terminal.text += "axis X already moving or can't travel more\n"
         def Xd(instance):
             global x1, x2
             b2, b3, b4, b5, b6, b7, b8 = i.MVP("REL", 0, negtravel)
             b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
             x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
-            if x1 == 0:
+            if (x1 == 0) and (x2 > 0):
                 x1 = 1
                 x2 = x2 - travel
                 ser.write(bytearray([1,138,0,0,0,0,0,1,140]))
@@ -112,13 +112,13 @@ class Widgets(FloatLayout):
                 self.xTravel.text = str(x2)
                 self.terminal.text += "axis X descend: " + str(travel) +"mm\n"
             else:
-                self.terminal.text += "axis X already moving\n"
+                self.terminal.text += "axis X already moving or can't travel to negative\n"
         def Ya(instance):
             global y1, y2
             b2, b3, b4, b5, b6, b7, b8 = i.MVP("REL", 1, travel)
             b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
             x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
-            if y1 == 0:
+            if (y1 == 0) and (y2 <= 420):
                 y1 = 1
                 y2 = y2 + travel
                 ser.write(bytearray([1,138,0,0,0,0,0,2,141]))
@@ -133,7 +133,7 @@ class Widgets(FloatLayout):
             b2, b3, b4, b5, b6, b7, b8 = i.MVP("REL", 1, negtravel)
             b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
             x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
-            if y1 == 0:
+            if (y1 == 0) and (y2 > 0):
                 y1 = 1
                 y2 = y2 - travel
                 ser.write(bytearray([1,138,0,0,0,0,0,2,141]))
@@ -142,13 +142,13 @@ class Widgets(FloatLayout):
                 self.yTravel.text = str(y2)
                 self.terminal.text += "axis Y descend: " + str(travel) +"mm\n"
             else:
-                self.terminal.text += "axis Y already moving\n"
+                self.terminal.text += "axis Y already moving or can't travel to negative\n"
         def Za(instance):
             global z1, z2
             b2, b3, b4, b5, b6, b7, b8 = i.MVP("REL", 2, travel)
             b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
             x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
-            if z1 == 0:
+            if (z1 == 0) and (z2 <= 900):
                 z1 = 1
                 z2 = z2 + travel
                 ser.write(bytearray([1,138,0,0,0,0,0,4,143]))
@@ -163,7 +163,7 @@ class Widgets(FloatLayout):
             b2, b3, b4, b5, b6, b7, b8 = i.MVP("REL", 2, negtravel)
             b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
             x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
-            if z1 == 0:
+            if (z1 == 0) and (z2 > 0):
                 z1 = 1
                 z2 = z2 - travel
                 ser.write(bytearray([1,138,0,0,0,0,0,4,143]))
@@ -172,13 +172,13 @@ class Widgets(FloatLayout):
                 self.zTravel.text = str(z2)
                 self.terminal.text += "axis Z descend: " + str(travel) +"mm\n"
             else:
-                self.terminal.text += "axis Z already moving\n"
+                self.terminal.text += "axis Z already moving or can't travel to negative\n"
         def Aa(instance):
             global a1, a2
             b2, b3, b4, b5, b6, b7, b8 = i.MVP("REL", 3, travel)
             b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
             x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
-            if a1 == 0:
+            if (a1 == 0) and (a2 <= 420):
                 a1 = 1
                 a2 = a2 + travel
                 ser.write(bytearray([1,138,0,0,0,0,0,8,147]))
@@ -193,7 +193,7 @@ class Widgets(FloatLayout):
             b2, b3, b4, b5, b6, b7, b8 = i.MVP("REL", 3, negtravel)
             b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
             x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
-            if a1 == 0:
+            if (a1 == 0) and (a2 > 0):
                 a1 = 1
                 a2 = a2 - travel
                 ser.write(bytearray([1,138,0,0,0,0,0,8,147]))
@@ -202,7 +202,7 @@ class Widgets(FloatLayout):
                 self.aTravel.text = str(a2)
                 self.terminal.text += "axis A descend: " + str(travel) +"mm\n"
             else:
-                self.terminal.text += "axis A already moving\n"
+                self.terminal.text += "axis A already moving or can't travel to negative\n"
         
 #funkce stop tlacitka    
         def STOP(instance):
@@ -304,7 +304,7 @@ class Widgets(FloatLayout):
                     self.terminal.text += "No sender program\n"
             except:
                 self.terminal.text += "Cutting not possible\n"
-            
+
 #funkce vycisteni terminalu                
         def clr(instance):
             self.terminal.text = ""
@@ -320,22 +320,22 @@ class Widgets(FloatLayout):
                 self.terminal.text += "cooling\n"
 #funkce primeho uzivatelskeho vstupu
         def command(instance):
-            i = self.command.text
+            t = self.command.text
             global mode
-            if i.find("G0") != -1:
+            if t.find("G0") != -1:
                 print("G0")
-                x = i.find("X")
-                y = i.find("Y")
-                z = i.find("Z")
-                a = i.find("A")
+                x = t.find("X")
+                y = t.find("Y")
+                z = t.find("Z")
+                a = t.find("A")
                 if (x == -1) or (y == -1) or (z == -1) or (a == -1):
                     self.terminal.text += "Command must be in form: G0 X Y Z A\n"
                     return
                 try:
-                    xx = int(i[x+1:y-1])
-                    yy = int(i[y+1:z-1])
-                    zz = int(i[z+1:a-1])
-                    aa = int(i[a+1:])
+                    xx = int(t[x+1:y-1])
+                    yy = int(t[y+1:z-1])
+                    zz = int(t[z+1:a-1])
+                    aa = int(t[a+1:])
                 except:
                     self.terminal.text += "Command must be in form: G0 X Y Z A\n"
                     return
@@ -347,22 +347,22 @@ class Widgets(FloatLayout):
                 ser.write(z)
                 sleep(0.001)
                 ser.write(a)
-                self.terminal.text += i + "\n"
+                self.terminal.text += t + "\n"
                 self.command.text = ""
-            elif i.find("G1") != -1:
+            elif t.find("G1") != -1:
                 print("G1")
-                x = i.find("X")
-                y = i.find("Y")
-                z = i.find("Z")
-                a = i.find("A")
+                x = t.find("X")
+                y = t.find("Y")
+                z = t.find("Z")
+                a = t.find("A")
                 if (x == -1) or (y == -1) or (z == -1) or (a == -1):
                     self.terminal.text += "Command must be in form: G1 X Y Z A\n"
                     return
                 try:
-                    xx = int(i[x+1:y-1])
-                    yy = int(i[y+1:z-1])
-                    zz = int(i[z+1:a-1])
-                    aa = int(i[a+1:])
+                    xx = int(t[x+1:y-1])
+                    yy = int(t[y+1:z-1])
+                    zz = int(t[z+1:a-1])
+                    aa = int(t[a+1:])
                 except:
                     self.terminal.text += "Command must be in form: G1 X Y Z A\n"
                     return
@@ -374,11 +374,22 @@ class Widgets(FloatLayout):
                 ser.write(z)
                 sleep(0.001)
                 ser.write(a)
-                self.terminal.text += i + "\n"
+                self.terminal.text += t + "\n"
                 self.command.text = ""
-            elif i.find("G28") != -1:
+            elif t.find("G28") != -1:
                 print("G28")
                 x, y, z, a = Gcode.G28()
+                for motor in range (0,4):
+                    b2,b3,b4,b5,b6,b7,b8 = i.SAP(193,motor,1)
+                    b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
+                    m = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
+                    ser.write(m)
+                    sleep(0.001)
+                    b2,b3,b4,b5,b6,b7,b8 = i.SAP(194,motor,2047)
+                    b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
+                    s = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
+                    ser.write(s)
+                    sleep(0.001)
                 ser.write(x)
                 sleep(0.001)
                 ser.write(y)
@@ -386,40 +397,44 @@ class Widgets(FloatLayout):
                 ser.write(z)
                 sleep(0.001)
                 ser.write(a)
-                self.terminal.text += i + "\n"
+                self.terminal.text += t + "\n"
                 self.command.text = ""
-            elif i.find("G90") != -1:
+                self.xTravel.text = "0"
+                self.yTravel.text = "0"
+                self.zTravel.text = "0"
+                self.aTravel.text = "0"
+            elif t.find("G90") != -1:
                 global mode
                 mode = Gcode.G90()
                 print("G90")
-                self.terminal.text += i + "\n"
+                self.terminal.text += t + "\n"
                 self.command.text = ""
-            elif i.find("G91") != -1:
+            elif t.find("G91") != -1:
                 
                 mode = Gcode.G91()
                 print("G91")
-                self.terminal.text += i + "\n"
+                self.terminal.text += t + "\n"
                 self.command.text = ""
-            elif i.find("M104") != -1:
-                a = i.find("S")
+            elif t.find("M104") != -1:
+                a = t.find("S")
                 if a == -1:
                     self.terminal.text += "Command must be in form: M104 S\n"
                     return
-                temp = int(i[a+1:])
+                temp = int(t[a+1:])
                 heat, send = Gcode.M104(temp)
                 print(heat)
                 ser.write(send)
-                self.terminal.text += i + "\n"
+                self.terminal.text += t + "\n"
                 self.command.text = ""
-            elif i.find("MST") != -1:
+            elif t.find("MST") != -1:
                 for motor in range (0,4):
                     b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,3, 0, motor, 0, 0, 0, 0)
                     x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
                     ser.write(x)
                 print("MST")
-                self.terminal.text += i + "\n"
+                self.terminal.text += t + "\n"
                 self.command.text = ""
-            elif i == "":
+            elif t == "":
                 self.terminal.text += "No command specified\n"
                 
             else:
@@ -460,25 +475,62 @@ class Widgets(FloatLayout):
 
 #funkce pro home tlacitka
         def homeX(instance):
+            
+            b2,b3,b4,b5,b6,b7,b8 = i.SAP(193,0,1)
+            b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
+            x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
+            ser.write(x)
+            b2,b3,b4,b5,b6,b7,b8 = i.SAP(194,0,2000)
+            b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
+            s = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
+            ser.write(s)
             b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,13,0,0,0,0,0,0)
             x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
             ser.write(x)
             self.terminal.text += "Home X\n"
+            self.xTravel.text = "0"
         def homeY(instance):
+            b2,b3,b4,b5,b6,b7,b8 = i.SAP(193,1,1)
+            b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
+            x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
+            ser.write(x)
+            b2,b3,b4,b5,b6,b7,b8 = i.SAP(194,1,2047)
+            b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
+            s = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
+            ser.write(s)
             b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,13,0,1,0,0,0,0)
             y = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
             ser.write(y)
             self.terminal.text += "Home Y\n"
+            self.yTravel.text = "0"
         def homeZ(instance):
+            b2,b3,b4,b5,b6,b7,b8 = i.SAP(193,2,1)
+            b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
+            x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
+            ser.write(x)
+            b2,b3,b4,b5,b6,b7,b8 = i.SAP(194,2,2047)
+            b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
+            s = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
+            ser.write(s)
             b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,13,0,2,0,0,0,0)
             z = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
             ser.write(z)
             self.terminal.text += "Home Z\n"
+            self.zTravel.text = "0"
         def homeA(instance):
+            b2,b3,b4,b5,b6,b7,b8 = i.SAP(193,3,1)
+            b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
+            x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
+            ser.write(x)
+            b2,b3,b4,b5,b6,b7,b8 = i.SAP(194,3,2047)
+            b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
+            s = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
+            ser.write(s)
             b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,13,0,3,0,0,0,0)
             a = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
             ser.write(a)
             self.terminal.text += "Home A\n"
+            self.aTravel.text = "0"
         
 #tlacitka pohybu
         self.add_widget(
@@ -486,17 +538,17 @@ class Widgets(FloatLayout):
         self.add_widget(
                 Label(text = "ZA", color=(0,0,0,255), pos = (950, 150), size_hint = (.07, .07), font_size = 40, bold = True))        
         self.add_widget(
-                Button(background_normal = "./images/upArrow.png", background_down = "./images/upArrowPressed.png", on_press = Ya, font_size = 40, size_hint=(.09, .16), pos = (120, 120)))
+                Button(background_normal = "./images/upArrow.png", background_down = "./images/upArrowPressed.png", on_press = Yd, font_size = 40, size_hint=(.09, .16), pos = (120, 120)))
         self.add_widget(
-                Button(background_normal = "./images/dwnArrow.png", background_down = "./images/dwnArrowPressed.png", on_press = Yd, font_size = 40, size_hint=(.09, .16), pos = (120, 5)))
+                Button(background_normal = "./images/dwnArrow.png", background_down = "./images/dwnArrowPressed.png", on_press = Ya, font_size = 40, size_hint=(.09, .16), pos = (120, 5)))
         self.add_widget(
                 Button(background_normal = "./images/rightArrow.png", background_down = "./images/rightArrowPressed.png", on_press = Xa, font_size = 40, size_hint=(.09, .16), pos = (235, 5)))
         self.add_widget(
                 Button(background_normal = "./images/leftArrow.png", background_down = "./images/leftArrowPressed.png", on_press = Xd, font_size = 40, size_hint=(.09, .16), pos = (5, 5)))
         self.add_widget(
-                Button(background_normal = "./images/upArrow.png", background_down = "./images/upArrowPressed.png", on_press = Aa, font_size = 40, size_hint=(.09, .16), pos = (1045, 120)))
+                Button(background_normal = "./images/upArrow.png", background_down = "./images/upArrowPressed.png", on_press = Ad, font_size = 40, size_hint=(.09, .16), pos = (1045, 120)))
         self.add_widget(
-                Button(background_normal = "./images/dwnArrow.png", background_down = "./images/dwnArrowPressed.png", on_press = Ad, font_size = 40, size_hint=(.09, .16), pos = (1045, 5)))
+                Button(background_normal = "./images/dwnArrow.png", background_down = "./images/dwnArrowPressed.png", on_press = Aa, font_size = 40, size_hint=(.09, .16), pos = (1045, 5)))
         self.add_widget(
                 Button(background_normal = "./images/rightArrow.png", background_down = "./images/rightArrowPressed.png", on_press = Za, font_size = 40, size_hint=(.09, .16), pos = (1160, 5)))
         self.add_widget(
@@ -611,5 +663,4 @@ class Gui(App):
 
 #spusteni aplikace        
 if __name__ == "__main__":
-    Gui().run()
-    
+    Gui().run()  

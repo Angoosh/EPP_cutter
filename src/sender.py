@@ -1,5 +1,6 @@
 import serial
 from byteparams import parameter as par
+import instructions as i
 import Gcode
 import pickle
 from time import sleep
@@ -47,26 +48,26 @@ def wait_until_reached():
             break
 
 #rozlysovani jednotlivych prikazu gcodu
-def action(i):
-    i = i.decode("utf-8")
-    print("i = "+i)
+def action(r):
+    r = r.decode("utf-8")
+    print("i = "+r)
     global mode
     global proceed
     global lastx, lasty, lastz, lasta
-    if i.find("G0") != -1:
+    if r.find("G0") != -1:
         print("G0")
-        x = i.find("X")
-        y = i.find("Y")
-        z = i.find("Z")
-        a = i.find("A")
+        x = r.find("X")
+        y = r.find("Y")
+        z = r.find("Z")
+        a = r.find("A")
         if (x == -1) or (y == -1) or (z == -1) or (a == -1):
             print("Command must be in form: G0 X Y Z A")
             return
         try:
-            xx = int(i[x+1:y-1])
-            yy = int(i[y+1:z-1])
-            zz = int(i[z+1:a-1])
-            aa = int(i[a+1:])
+            xx = int(r[x+1:y-1])
+            yy = int(r[y+1:z-1])
+            zz = int(r[z+1:a-1])
+            aa = int(r[a+1:])
         except:
             print("Command must be in form: G0 X Y Z A")
             return
@@ -126,20 +127,20 @@ def action(i):
             ser.write(x)
             print("fourth")
             pass
-    elif i.find("G1") != -1:
+    elif r.find("G1") != -1:
         print("G1")
-        x = i.find("X")
-        y = i.find("Y")
-        z = i.find("Z")
-        a = i.find("A")
+        x = r.find("X")
+        y = r.find("Y")
+        z = r.find("Z")
+        a = r.find("A")
         if (x == -1) or (y == -1) or (z == -1) or (a == -1):
             print("Command must be in form: G1 X Y Z A")
             return
         try:
-            xx = int(i[x+1:y-1])
-            yy = int(i[y+1:z-1])
-            zz = int(i[z+1:a-1])
-            aa = int(i[a+1:])
+            xx = int(r[x+1:y-1])
+            yy = int(r[y+1:z-1])
+            zz = int(r[z+1:a-1])
+            aa = int(r[a+1:])
         except:
             print("Command must be in form: G1 X Y Z A")
             return
@@ -199,8 +200,18 @@ def action(i):
             ser.write(x)
             print("fourth")
             pass
-    elif i.find("G28") != -1:
+    elif r.find("G28") != -1:
         print("G28")
+        for motor in range (0,4):
+            b2,b3,b4,b5,b6,b7,b8 = i.SAP(193,motor,1)
+            b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
+            x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
+            ser.write(x)
+            b2,b3,b4,b5,b6,b7,b8 = i.SAP(194,motor,2047)
+            b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
+            s = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
+            ser.write(s)
+            sleep(0.001)
         x, y, z, a = Gcode.G28()
         ser.write(x)
         sleep(0.001)
@@ -209,38 +220,38 @@ def action(i):
         ser.write(z)
         sleep(0.001)
         ser.write(a)
-    elif i.find("G90") != -1:
+    elif r.find("G90") != -1:
         global mode
         mode = Gcode.G90()
         print("G90")
-    elif i.find("G91") != -1:
+    elif r.find("G91") != -1:
         mode = Gcode.G91()
         print("G91")
-    elif i.find("M104") != -1:
-        a = i.find("S")
+    elif r.find("M104") != -1:
+        a = r.find("S")
         if a == -1:
             print("Command must be in form: M104 S")
             return
-        temp = int(i[a+1:])
+        temp = int(r[a+1:])
         heat, send = Gcode.M104(temp)
         print(heat)
         ser.write(send)
         sleep(0.001)
-    elif i.find("MST") != -1:
+    elif r.find("MST") != -1:
         for motor in range (0,4):
             b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,3, 0, motor, 0, 0, 0, 0)
             x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
             ser.write(x)
             sleep(0.001)
             print("MST")
-    elif i == "":
+    elif r == "":
         print("No command specified")
     else:
         print("Unknown command")
 
 
-with open(file, "rb") as i:
-    for line in i:
+with open(file, "rb") as t:
+    for line in t:
         print(line)
         a = line.decode("utf-8")
         if (a.find("G0") != -1) or (a.find("G1") != -1):
@@ -256,6 +267,57 @@ with open(file, "rb") as i:
                 if r == b'\x02\x01\x80\x8a\x00\x00\x00\x04\x11':
                     break
                 if r == b'\x02\x01\x80\x8a\x00\x00\x00\x08\x15':
+                    break
+        elif a.find("G28") != -1:
+            action(line)
+            Xh = 0
+            Yh = 0
+            Zh = 0
+            Ah = 0
+            while True:
+                b2,b3,b4,b5,b6,b7,b8 = i.GAP(11,0)
+                b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
+                x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
+                ser.write(x)
+                a = ser.read(9)
+                if a == b'\x02\x01\x64\x06\x00\x00\x00\x01\x6e':
+                    Xh = 1
+                else:
+                    Xh = 0
+                sleep(0.1)
+                b2,b3,b4,b5,b6,b7,b8 = i.GAP(11,1)
+                b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
+                x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
+                ser.write(x)
+                a = ser.read(9)
+                if a == b'\x02\x01\x64\x06\x00\x00\x00\x01\x6e':
+                    Yh = 1
+                else:
+                    Yh = 0
+                sleep(0.1)
+                b2,b3,b4,b5,b6,b7,b8 = i.GAP(11,2)
+                b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
+                x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
+                ser.write(x)
+                a = ser.read(9)
+                if a == b'\x02\x01\x64\x06\x00\x00\x00\x01\x6e':
+                    Zh = 1
+                else:
+                    Zh = 0
+                sleep(0.1)
+                b2,b3,b4,b5,b6,b7,b8 = i.GAP(11,3)
+                b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
+                x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
+                ser.write(x)
+                a = ser.read(9)
+                if a == b'\x02\x01\x64\x06\x00\x00\x00\x01\x6e':
+                    Ah = 1
+                else:
+                    Ah = 0
+                sleep(0.1)
+                if (Xh == 1) and (Yh == 1) and (Zh == 1) and (Ah == 1):
+                    sleep(2)
+                    print("home finished")
                     break
         else:
             action(line)

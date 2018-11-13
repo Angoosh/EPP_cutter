@@ -315,6 +315,12 @@ class Widgets(FloatLayout):
                 send = Gcode.M104(0)[1]
                 ser.write(send)
                 self.terminal.text += "cooling\n"
+#funkce fullscreen tlacitka
+        def fullscreen(instance):
+            if self.fullscreen.state == "down":
+                Window.fullscreen = True
+            else:
+                Window.fullscreen = False
 #funkce primeho uzivatelskeho vstupu
         def command(instance):
             t = self.command.text
@@ -607,6 +613,10 @@ class Widgets(FloatLayout):
         self.heating = ToggleButton(text = "Heating", on_press = heating, font_size = 25, size_hint=(.08, .05), pos_hint = {"x":500/1280, "y":480/720}, background_down = "./images/heatingPressed.png")
         self.add_widget(self.heating)
         
+#fullscreen tlacitko
+        self.fullscreen = ToggleButton(text = "Fullscr", on_press = fullscreen, font_size = 25, size_hint=(.08, .05), pos_hint = {"x":5/1280, "y":680/720})
+        self.add_widget(self.fullscreen)
+        
 #ERROR terminal        
         self.terminal = TextInput(size_hint=(.3, .3), pos_hint = {"x":450/1280, "y":70/720}, font_size=12, readonly=True)
         self.add_widget(self.terminal)
@@ -646,7 +656,6 @@ class Gui(App):
         root.bind(size = self._update_rect, pos = self._update_rect)
         
         Window.size = (1280, 720)
-        #Window.fullscreen = True
         self.icon = "./images/appIcon1.png"
         self.title = "Control Panel"
         self.window_icon = "./images/appIcon1.png"

@@ -25,6 +25,7 @@ ser = serial.Serial(serPort)
 #deklarace globalnich promennych
 proceed = 0
 mode = "ABS"
+feed = 2047
 lastx, lasty, lastz, lasta = 0, 0, 0, 0
 
 #funkce pro threading
@@ -54,6 +55,7 @@ def action(r):
     global mode
     global proceed
     global lastx, lasty, lastz, lasta
+    global feed
     if r.find("G0") != -1:
         print("G0")
         x = r.find("X")
@@ -78,6 +80,33 @@ def action(r):
         na = abs(aa-lasta)
         mx = max(nx, ny, nz, na)
         print(mx)
+#------------------------------test--------------------------------------------
+        fx = feed/(mx/nx)
+        fy = feed/(mx/ny)
+        fz = feed/(mx/nz)
+        fa = feed/(mx/na)
+        
+        b2,b3,b4,b5,b6,b7,b8 = i.SAP(4, 0, fx)
+        b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
+        x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
+        ser.write(x)
+        sleep(0.001)
+        b2,b3,b4,b5,b6,b7,b8 = i.SAP(4, 0, fy)
+        b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
+        x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
+        ser.write(x)
+        sleep(0.001)
+        b2,b3,b4,b5,b6,b7,b8 = i.SAP(4, 0, fz)
+        b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
+        x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
+        ser.write(x)
+        sleep(0.001)
+        b2,b3,b4,b5,b6,b7,b8 = i.SAP(4, 0, fa)
+        b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
+        x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
+        ser.write(x)
+        sleep(0.001)
+#---------------------------test-end-------------------------------------------     
         lastx, lasty, lastz, lasta = xx, yy, zz, aa
         if nx == mx:
             ser.write(bytearray([1,138,0,0,0,0,0,1,140]))

@@ -1,19 +1,11 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Oct  8 08:15:34 2018
-
-@author: angoosh
-"""
-
 import instructions as i
 from byteparams import parameter as par
+import config
 import serial
 #from GUI.Widgets import __init__ as gui
 
 def connection(port):
     try:
-        #port = "/dev/ttyACM0"
         ser = serial.Serial(port)
         print("Connected")
         return ser
@@ -24,8 +16,7 @@ def connection(port):
     
 
 
-
-mode = "ABS"
+mode = config.glob()[0]
 
 
 def G0(X, Y, Z, A):
@@ -70,10 +61,12 @@ def G28():
     return(x, y, z, a)
     
 def G90():
+    global mode
     mode = "ABS"
     return(mode)
     
 def G91():
+    global mode
     mode = "REL"
     return(mode)
         
@@ -86,4 +79,3 @@ def M104(temp):
     b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
     x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
     return(temp, x)
-    

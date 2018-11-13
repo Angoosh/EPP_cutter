@@ -1,10 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Nov  4 14:06:52 2018
-
-@author: angoosh
-"""
 import Gcode
 from time import sleep
 import instructions as i
@@ -26,8 +19,8 @@ def sendComm():
     pickle.dump(file, f)
     f.close()
     
-def Exceptions():
-    def write(ser):
+class Exceptions():
+    def write(self, ser):
         print("No Connection")
     def read(dd, aa):
         print("No connection")
@@ -78,9 +71,11 @@ def cli(x):
     Instructions are:
         port - takes one argument, for connecting to selected port
         connect - connect to port
+        disconnect - to disconnect from cutter
         gcode - takes one argument, gcode which will be printing from
         cut - for cutting, no arguments
         stop - immediate stop of cutting, no arguments
+        exit - to exit application, note that sender will continue sending gcode to the cutter
         G0, G1, G28, G90, G91, M104, MST - as genetral cutter commands, arguments:
             G0 X Y Z A
             G1 X Y Z A
@@ -195,6 +190,9 @@ def cli(x):
         serPort = t[5:]
     elif t.find("connect") != -1:
         ser = Gcode.connection(serPort)
+    elif t.find("disconnect") != -1:
+        ser.close()
+        ser = Exceptions()
     elif t.find("gcode") != -1:
         y = t[6:]
         gcoload(y)
@@ -208,6 +206,9 @@ def cli(x):
             print("no file for cutting selected")
     elif t.find("stop") != -1:
         STOP()
+    elif t.find("exit") != -1:
+        pid = os.getpid()
+        os.system("kill "+str(pid))
     elif t == "":
         print("No command given\n")
     else:

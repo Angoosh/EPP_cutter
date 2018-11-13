@@ -1,10 +1,5 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+
 """
-Created on Tue Oct 23 13:51:44 2018
-
-@author: angoosh
-
 Must run on python 3 
 """
 
@@ -242,10 +237,12 @@ class Widgets(FloatLayout):
             else:
                 value = int(self.feed.text)
                 print(self.feed.text)
-                b2,b3,b4,b5,b6,b7,b8 = i.SAP(4, 0, value)
-                b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
-                x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
-                ser.write(x)
+                for motor in range (0,4):
+                    b2,b3,b4,b5,b6,b7,b8 = i.SAP(4, motor, value)
+                    b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
+                    x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
+                    ser.write(x)
+                    sleep(0.001)
                 self.terminal.text += "Feedrate set to: " + self.feed.text + "\n"
 #funkce pro travel os
         def trav(btn):

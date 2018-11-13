@@ -1,10 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Oct 30 11:05:04 2018
-
-@author: angoosh
-"""
 import serial
 from byteparams import parameter as par
 from time import sleep

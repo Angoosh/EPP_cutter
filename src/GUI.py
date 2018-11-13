@@ -529,114 +529,114 @@ class Widgets(FloatLayout):
             self.terminal.text += "Home A\n"
             self.aTravel.text = "0"
         
-#tlacitka pohybu
+#tlacitka pohybupos_hint={'x':.2, 'y':.2}
         self.add_widget(
-                Label(text = "XY", color=(0,0,0,255), pos = (240, 150), size_hint = (.07, .07), font_size = 40, bold = True))
+                Label(text = "XY", color=(0,0,0,255), pos_hint = {"x":.1875, "y":.208333333}, size_hint = (.07, .07), font_size = 40, bold = True))
         self.add_widget(
-                Label(text = "ZA", color=(0,0,0,255), pos = (950, 150), size_hint = (.07, .07), font_size = 40, bold = True))        
+                Label(text = "ZA", color=(0,0,0,255), pos_hint = {"x":.7421875, "y":.208333333}, size_hint = (.07, .07), font_size = 40, bold = True))        
         self.add_widget(
-                Button(background_normal = "./images/upArrow.png", background_down = "./images/upArrowPressed.png", on_press = Yd, font_size = 40, size_hint=(.09, .16), pos = (120, 120)))
+                Button(background_normal = "./images/upArrow.png", background_down = "./images/upArrowPressed.png", on_press = Yd, font_size = 40, size_hint=(.09, .16), pos_hint = {"x":120/1280, "y":120/720}))
         self.add_widget(
-                Button(background_normal = "./images/dwnArrow.png", background_down = "./images/dwnArrowPressed.png", on_press = Ya, font_size = 40, size_hint=(.09, .16), pos = (120, 5)))
+                Button(background_normal = "./images/dwnArrow.png", background_down = "./images/dwnArrowPressed.png", on_press = Ya, font_size = 40, size_hint=(.09, .16), pos_hint = {"x":120/1280, "y":5/720}))
         self.add_widget(
-                Button(background_normal = "./images/rightArrow.png", background_down = "./images/rightArrowPressed.png", on_press = Xa, font_size = 40, size_hint=(.09, .16), pos = (235, 5)))
+                Button(background_normal = "./images/rightArrow.png", background_down = "./images/rightArrowPressed.png", on_press = Xa, font_size = 40, size_hint=(.09, .16), pos_hint = {"x":235/1280, "y":5/720}))
         self.add_widget(
-                Button(background_normal = "./images/leftArrow.png", background_down = "./images/leftArrowPressed.png", on_press = Xd, font_size = 40, size_hint=(.09, .16), pos = (5, 5)))
+                Button(background_normal = "./images/leftArrow.png", background_down = "./images/leftArrowPressed.png", on_press = Xd, font_size = 40, size_hint=(.09, .16), pos_hint = {"x":5/1280, "y":5/720}))
         self.add_widget(
-                Button(background_normal = "./images/upArrow.png", background_down = "./images/upArrowPressed.png", on_press = Ad, font_size = 40, size_hint=(.09, .16), pos = (1045, 120)))
+                Button(background_normal = "./images/upArrow.png", background_down = "./images/upArrowPressed.png", on_press = Ad, font_size = 40, size_hint=(.09, .16), pos_hint = {"x":1045/1280, "y":120/720}))
         self.add_widget(
-                Button(background_normal = "./images/dwnArrow.png", background_down = "./images/dwnArrowPressed.png", on_press = Aa, font_size = 40, size_hint=(.09, .16), pos = (1045, 5)))
+                Button(background_normal = "./images/dwnArrow.png", background_down = "./images/dwnArrowPressed.png", on_press = Aa, font_size = 40, size_hint=(.09, .16), pos_hint = {"x":1045/1280, "y":5/720}))
         self.add_widget(
-                Button(background_normal = "./images/rightArrow.png", background_down = "./images/rightArrowPressed.png", on_press = Za, font_size = 40, size_hint=(.09, .16), pos = (1160, 5)))
+                Button(background_normal = "./images/rightArrow.png", background_down = "./images/rightArrowPressed.png", on_press = Za, font_size = 40, size_hint=(.09, .16), pos_hint = {"x":1160/1280, "y":5/720}))
         self.add_widget(
-                Button(background_normal = "./images/leftArrow.png", background_down = "./images/leftArrowPressed.png", on_press = Zd, font_size = 40, size_hint=(.09, .16), pos = (930, 5)))
+                Button(background_normal = "./images/leftArrow.png", background_down = "./images/leftArrowPressed.png", on_press = Zd, font_size = 40, size_hint=(.09, .16), pos_hint = {"x":930/1280, "y":5/720}))
 
 #indikatory pozic
-        self.xTravel = TextInput(text = "0", size_hint=(.06, .05), pos=(550, 600), font_size=20, readonly=True)
+        self.xTravel = TextInput(text = "0", size_hint=(.06, .05), pos_hint = {"x":550/1280, "y":600/720}, font_size=20, readonly=True)
         self.add_widget(self.xTravel)
-        self.yTravel = TextInput(text = "0", size_hint=(.06, .05), pos=(640, 600), font_size=20, readonly=True)
+        self.yTravel = TextInput(text = "0", size_hint=(.06, .05), pos_hint = {"x":640/1280, "y":600/720}, font_size=20, readonly=True)
         self.add_widget(self.yTravel)
-        self.zTravel = TextInput(text = "0", size_hint=(.06, .05), pos=(730, 600), font_size=20, readonly=True)
+        self.zTravel = TextInput(text = "0", size_hint=(.06, .05), pos_hint = {"x":730/1280, "y":600/720}, font_size=20, readonly=True)
         self.add_widget(self.zTravel)
-        self.aTravel = TextInput(text = "0", size_hint=(.06, .05), pos=(820, 600), font_size=20, readonly=True)
+        self.aTravel = TextInput(text = "0", size_hint=(.06, .05), pos_hint = {"x":820/1280, "y":600/720}, font_size=20, readonly=True)
         self.add_widget(self.aTravel)
         self.add_widget(
-                Label(text = "Set axis positions", color=(0,0,0,255), pos = (670, 660), size_hint = (.07, .07), font_size = 20, bold = True))
+                Label(text = "Set axis positions", color=(0,0,0,255), pos_hint = {"x":670/1280, "y":660/720}, size_hint = (.07, .07), font_size = 20, bold = True))
         self.add_widget(
-                Label(text = "X", color=(0,0,0,255), pos = (550, 630), size_hint = (.06, .07), font_size = 20, bold = True))
+                Label(text = "X", color=(0,0,0,255), pos_hint = {"x":550/1280, "y":630/720}, size_hint = (.06, .07), font_size = 20, bold = True))
         self.add_widget(
-                Label(text = "Y", color=(0,0,0,255), pos = (640, 630), size_hint = (.06, .07), font_size = 20, bold = True))
+                Label(text = "Y", color=(0,0,0,255), pos_hint = {"x":640/1280, "y":630/720}, size_hint = (.06, .07), font_size = 20, bold = True))
         self.add_widget(
-                Label(text = "Z", color=(0,0,0,255), pos = (730, 630), size_hint = (.06, .07), font_size = 20, bold = True))
+                Label(text = "Z", color=(0,0,0,255), pos_hint = {"x":730/1280, "y":630/720}, size_hint = (.06, .07), font_size = 20, bold = True))
         self.add_widget(
-                Label(text = "A", color=(0,0,0,255), pos = (820, 630), size_hint = (.06, .07), font_size = 20, bold = True))
+                Label(text = "A", color=(0,0,0,255), pos_hint = {"x":820/1280, "y":630/720}, size_hint = (.06, .07), font_size = 20, bold = True))
         
 #Stop tacitko
         self.add_widget(
-                Button(text = "STOP", on_press = STOP, font_size = 40, size_hint=(.16, .16), pos = (1060, 600), background_color = (255, 0, 0, 255)))
+                Button(text = "STOP", on_press = STOP, font_size = 40, size_hint=(.16, .16), pos_hint = {"x":1060/1280, "y":600/720}, background_color = (255, 0, 0, 255)))
         
 #nastaveni feedrate
-        self.feed = TextInput(size_hint=(.1, .05), pos=(500, 340), input_filter="int", font_size=20, multiline=False)
+        self.feed = TextInput(size_hint=(.1, .05), pos_hint = {"x":500/1280, "y":340/720}, input_filter="int", font_size=20, multiline=False)
         self.add_widget(self.feed)
         self.add_widget(
-                Button(text = "set", on_press = sett, font_size = 25, size_hint=(.05, .05), pos = (650, 340)))
+                Button(text = "set", on_press = sett, font_size = 25, size_hint=(.05, .05), pos_hint = {"x":650/1280, "y":340/720}))
         self.add_widget(
-                Label(text = "Feedrate", pos = (500, 370), size_hint=(.1, .05), color=(0,0,0,255)))
+                Label(text = "Feedrate", pos_hint = {"x":500/1280, "y":370/720}, size_hint=(.1, .05), color=(0,0,0,255)))
         
 #nastaveni travel os
-        self.travel = TextInput(text = "10", size_hint=(.1, .05), pos=(500, 400), input_filter="float", font_size=20, multiline=False)
+        self.travel = TextInput(text = "10", size_hint=(.1, .05), pos_hint = {"x":500/1280, "y":400/720}, input_filter="float", font_size=20, multiline=False)
         self.add_widget(self.travel)
         self.add_widget(
-                Label(text = "Travel", pos = (500, 430), size_hint=(.1, .05), color=(0,0,0,255)))
+                Label(text = "Travel", pos_hint = {"x":500/1280, "y":430/720}, size_hint=(.1, .05), color=(0,0,0,255)))
         self.add_widget(
-                Button(text = "set", on_press = trav, font_size = 25, size_hint=(.05, .05), pos = (650, 400)))
+                Button(text = "set", on_press = trav, font_size = 25, size_hint=(.05, .05), pos_hint = {"x":650/1280, "y":400/720}))
        
 #file chooser
-        self.gco = TextInput(size_hint=(.2, .05), pos=(100, 480), font_size=12, multiline=False)
+        self.gco = TextInput(size_hint=(.2, .05), pos_hint = {"x":100/1280, "y":480/720}, font_size=12, multiline=False)
         self.add_widget(self.gco)
         self.add_widget(
-                Label(text = "Gcode", pos = (100, 510), size_hint=(.1, .05), color=(0,0,0,255)))
+                Label(text = "Gcode", pos_hint = {"x":100/1280, "y":510/720}, size_hint=(.1, .05), color=(0,0,0,255)))
         self.add_widget(
-                Button(text = "Load", on_press = gcoload, font_size = 25, size_hint=(.08, .05), pos = (370, 480)))
+                Button(text = "Load", on_press = gcoload, font_size = 25, size_hint=(.08, .05), pos_hint = {"x":370/1280, "y":480/720}))
        
 #tlacitko zacnuti vyrezavani
         self.add_widget(
-                Button(text = "Cut", on_press = cut, font_size = 25, size_hint=(.05, .05), pos = (100, 400)))
+                Button(text = "Cut", on_press = cut, font_size = 25, size_hint=(.05, .05), pos_hint = {"x":100/1280, "y":400/720}))
         
 #tlacitko nahrati odporoveho dratu
-        self.heating = ToggleButton(text = "Heating", on_press = heating, font_size = 25, size_hint=(.08, .05), pos = (500, 480), background_down = "./images/heatingPressed.png")
+        self.heating = ToggleButton(text = "Heating", on_press = heating, font_size = 25, size_hint=(.08, .05), pos_hint = {"x":500/1280, "y":480/720}, background_down = "./images/heatingPressed.png")
         self.add_widget(self.heating)
         
 #ERROR terminal        
-        self.terminal = TextInput(size_hint=(.3, .3), pos=(450, 70), font_size=12, readonly=True)
+        self.terminal = TextInput(size_hint=(.3, .3), pos_hint = {"x":450/1280, "y":70/720}, font_size=12, readonly=True)
         self.add_widget(self.terminal)
         self.add_widget(
-                Button(text = "Clear", on_press = clr, font_size = 25, size_hint=(.06, .05), pos = (835, 250)))
+                Button(text = "Clear", on_press = clr, font_size = 25, size_hint=(.06, .05), pos_hint = {"x":835/1280, "y":250/720}))
         
 #Command sender
-        self.command = TextInput(size_hint=(.2, .05), pos=(450, 20), font_size=16, multiline=False)
+        self.command = TextInput(size_hint=(.2, .05), pos_hint = {"x":450/1280, "y":20/720}, font_size=16, multiline=False)
         self.add_widget(self.command)
         self.add_widget(
-                Button(text = "Send", on_press = command, font_size = 25, size_hint=(.08, .05), pos = (720, 20)))
+                Button(text = "Send", on_press = command, font_size = 25, size_hint=(.08, .05), pos_hint = {"x":720/1280, "y":20/720}))
         
 #Home buttons
         self.add_widget(
-                Button(text = "X", on_press = homeX, font_size = 30, size_hint=(.045, .08), pos = (850, 350), bold = True))
+                Button(text = "X", on_press = homeX, font_size = 30, size_hint=(.045, .08), pos_hint = {"x":850/1280, "y":350/720}, bold = True))
         self.add_widget(
-                Button(text = "Y", on_press = homeY, font_size = 30, size_hint=(.045, .08), pos = (920, 350), bold = True))
+                Button(text = "Y", on_press = homeY, font_size = 30, size_hint=(.045, .08), pos_hint = {"x":920/1280, "y":350/720}, bold = True))
         self.add_widget(
-                Button(text = "Z", on_press = homeZ, font_size = 30, size_hint=(.045, .08), pos = (990, 350), bold = True))
+                Button(text = "Z", on_press = homeZ, font_size = 30, size_hint=(.045, .08), pos_hint = {"x":990/1280, "y":350/720}, bold = True))
         self.add_widget(
-                Button(text = "A", on_press = homeA, font_size = 30, size_hint=(.045, .08), pos = (1060, 350), bold = True))
+                Button(text = "A", on_press = homeA, font_size = 30, size_hint=(.045, .08), pos_hint = {"x":1060/1280, "y":350/720}, bold = True))
         self.add_widget(
-                Label(text = "HOME axis", pos = (850, 410), size_hint=(.1, .05), color=(0,0,0,255)))
+                Label(text = "HOME axis", pos_hint = {"x":850/1280, "y":410/720}, size_hint=(.1, .05), color=(0,0,0,255)))
         
 #Vyber portu
-        self.port = TextInput(text = "/dev/ttyACM0", size_hint=(.1, .05), pos=(100, 560), font_size=12, multiline=False)
+        self.port = TextInput(text = "/dev/ttyACM0", size_hint=(.1, .05), pos_hint = {"x":100/1280, "y":560/720}, font_size=12, multiline=False)
         self.add_widget(self.port)
         self.add_widget(
-                Label(text = "Port", pos = (100, 590), size_hint=(.1, .05), color=(0,0,0,255)))
-        self.portButt = ToggleButton(text = "Connect", on_press = port, font_size = 25, size_hint=(.08, .05), pos = (240, 560))
+                Label(text = "Port", pos_hint = {"x":100/1280, "y":590/720}, size_hint=(.1, .05), color=(0,0,0,255)))
+        self.portButt = ToggleButton(text = "Connect", on_press = port, font_size = 25, size_hint=(.08, .05), pos_hint = {"x":240/1280, "y":560/720})
         self.add_widget(self.portButt)
         
 #trida samotne aplikace   
@@ -646,6 +646,7 @@ class Gui(App):
         root.bind(size = self._update_rect, pos = self._update_rect)
         
         Window.size = (1280, 720)
+        #Window.fullscreen = True
         self.icon = "./images/appIcon1.png"
         self.title = "Control Panel"
         self.window_icon = "./images/appIcon1.png"

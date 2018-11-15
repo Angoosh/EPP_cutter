@@ -1,3 +1,8 @@
+
+"""
+Must run on python 3 
+"""
+
 import serial
 from byteparams import parameter as par
 import instructions as i
@@ -17,11 +22,13 @@ pid = os.getpid()
 f = open("comm.pickle", "wb")
 pickle.dump(pid, f)
 f.close()
-#serPort = "/dev/ttyACM0"
-#file = "maxx.gcode"
-#pripojeni k portu
-ser = serial.Serial(serPort)
 
+#pripojeni k portu
+try:
+    ser = serial.Serial(serPort)
+except:
+    print("No such serial port as: " + serPort)
+    os.system("kill "+str(pid))
 #deklarace globalnich promennych
 proceed = 0
 mode = "ABS"

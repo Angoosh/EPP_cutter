@@ -340,9 +340,9 @@ class Widgets(FloatLayout):
 #funkce fullscreen tlacitka
         def fullscreen(instance):
             if self.fullscreen.state == "down":
-                Window.fullscreen = True
-            else:
                 Window.fullscreen = False
+            else:
+                Window.fullscreen = True
 #funkce primeho uzivatelskeho vstupu
         def command(instance):
             t = self.command.text
@@ -681,6 +681,7 @@ class Gui(App):
         self.icon = "./images/appIcon1.png"
         self.title = "Control Panel"
         self.window_icon = "./images/appIcon1.png"
+        Window.fullscreen = True
 
         with root.canvas.before:
             self.rect = Rectangle(size=root.size, pos=root.pos)

@@ -2,7 +2,7 @@
 Final exam project<br />
 Contains controlling app<br />
 <br />
-###### Installation:<br />
+## Installation:<br />
 ```
 git clone https://github.com/Angoosh/EPP_cutter ~/cutter
 cd ~/cutter

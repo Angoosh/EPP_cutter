@@ -13,3 +13,9 @@ git clone https://github.com/kivy/kivy
 cd kivy
 python3 setup.py build
 sudo python3 setup.py install
+cd ~/cutter/src
+chmod +x main.py
+cd ~/
+echo "cd ~/cutter/src" >> .bashrc
+echo "./main.py" >> .bashrc
+sudo reboot

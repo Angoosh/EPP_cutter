@@ -88,31 +88,43 @@ def action(r):
         mx = max(nx, ny, nz, na)
         print(mx)
 #------------------------------test--------------------------------------------
-        fx = feed/(mx/nx)
-        fy = feed/(mx/ny)
-        fz = feed/(mx/nz)
-        fa = feed/(mx/na)
+        fx, fy, fz, fa = nx, ny, nz, na
+        if fx == 0:
+            fx = mx
+        if fy == 0:
+            fy = mx
+        if fz == 0:
+            fz = mx
+        if fa == 0:
+            fa = mx
+        fx = int(feed/(mx/fx))
+        fy = int(feed/(mx/fy))
+        fz = int(feed/(mx/fz))
+        fa = int(feed/(mx/fa))
+        
+        print(fx, fy, fz, fa)
         
         b2,b3,b4,b5,b6,b7,b8 = i.SAP(4, 0, fx)
-        b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
-        x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
-        ser.write(x)
+        b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
+        byte = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
+        ser.write(byte)
+        print("exxxx: "+str(byte))
         sleep(0.001)
-        b2,b3,b4,b5,b6,b7,b8 = i.SAP(4, 0, fy)
+        b2,b3,b4,b5,b6,b7,b8 = i.SAP(4, 1, fy)
         b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
-        x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
-        ser.write(x)
-        sleep(0.001)
-        b2,b3,b4,b5,b6,b7,b8 = i.SAP(4, 0, fz)
+        byte = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
+        ser.write(byte)
+        sleep(0.003)
+        b2,b3,b4,b5,b6,b7,b8 = i.SAP(4, 2, fz)
         b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
-        x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
-        ser.write(x)
-        sleep(0.001)
-        b2,b3,b4,b5,b6,b7,b8 = i.SAP(4, 0, fa)
+        byte = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
+        ser.write(byte)
+        sleep(0.003)
+        b2,b3,b4,b5,b6,b7,b8 = i.SAP(4, 3, fa)
         b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
-        x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
-        ser.write(x)
-        sleep(0.001)
+        byte = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
+        ser.write(byte)
+        sleep(0.003)
 #---------------------------test-end-------------------------------------------     
         lastx, lasty, lastz, lasta = xx, yy, zz, aa
         if nx == mx:
@@ -296,7 +308,6 @@ with open(file, "rb") as t:
                 r = ser.read(9)
                 print(r)
                 if r == b'\x02\x01\x80\x8a\x00\x00\x00\x01\x0e':
-                    print("x")
                     break
                 if r == b'\x02\x01\x80\x8a\x00\x00\x00\x02\x0f':
                     break

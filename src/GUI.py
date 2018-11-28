@@ -22,6 +22,7 @@ import pickle
 from time import sleep
 import tkinter
 
+
 #zjistovani rozliseni obrazovky
 root = tkinter.Tk()
 width = root.winfo_screenwidth()
@@ -481,6 +482,7 @@ class Widgets(FloatLayout):
                         #global ser
                         ser = ser
                         serport = self.port.text
+                        config.func()
                         return ser
                         #ser = connection(self.port.text)
                     else:
@@ -677,7 +679,7 @@ class Gui(App):
         self.root = root = Widgets()
         root.bind(size = self._update_rect, pos = self._update_rect)
         
-        Window.size = (1280, 720)
+        Window.size = (width, height)
         self.icon = "./images/appIcon1.png"
         self.title = "Control Panel"
         self.window_icon = "./images/appIcon1.png"

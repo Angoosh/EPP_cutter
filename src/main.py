@@ -6,7 +6,7 @@ import subprocess
 
 for i in range (0,3):
     
-    #kontrola modulů
+    #kontrola modulu
     try:
         import serial
     except:

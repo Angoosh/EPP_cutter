@@ -1,10 +1,15 @@
+
+"""
+Must run on python 3 
+"""
+
 import Gcode
 from time import sleep
 import instructions as i
 from byteparams import parameter as par
 import pickle
 import os
-
+import config
 
 mode = "ABS"
 serPort = "/dev/ttyACM0"
@@ -189,7 +194,12 @@ def cli(x):
     elif t.find("port") != -1:
         serPort = t[5:]
     elif t.find("connect") != -1:
-        ser = Gcode.connection(serPort)
+        try:
+            ser = Gcode.connection(serPort)
+            sleep(0.2)
+            config.func()
+        except: 
+            ""
     elif t.find("disconnect") != -1:
         ser.close()
         ser = Exceptions()

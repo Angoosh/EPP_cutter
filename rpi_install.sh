@@ -18,4 +18,8 @@ chmod +x main.py
 cd ~/
 echo "cd ~/cutter/src" >> .bashrc
 echo "./main.py" >> .bashrc
+cd ~/cutter
+rm rpi_install.sh
+rm ubuntu_install-sh
+rm README.md
 sudo reboot

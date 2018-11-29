@@ -1,6 +1,6 @@
 # EPP_cutter
 Final exam project<br />
-Contains controlling app<br />
+Contains controlling app and gcode sender.<br />
 <br />
 ## Installation:<br />
 ```

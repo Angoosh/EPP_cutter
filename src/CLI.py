@@ -9,6 +9,7 @@ import instructions as i
 from byteparams import parameter as par
 import pickle
 import os
+import subprocess
 import config
 
 mode = "ABS"
@@ -75,8 +76,8 @@ def cli(x):
     
     Instructions are:
         port - takes one argument, for connecting to selected port
-        connect - connect to port
-        disconnect - to disconnect from cutter
+        connect - connect to port on which cutter is, no arguments
+        disconnect - to disconnect from cutter, no arguments
         gcode - takes one argument, gcode which will be printing from
         cut - for cutting, no arguments
         stop - immediate stop of cutting, no arguments
@@ -90,6 +91,9 @@ def cli(x):
             M104 S
             MST
             
+        command - for direct single line shell command input. If needed more commands
+                  it must be in form: <first command> ; <second command> ; ...
+                  
     Default port is /dev/ttyACM0
     """
     t = x
@@ -218,7 +222,15 @@ def cli(x):
         STOP()
     elif t.find("exit") != -1:
         pid = os.getpid()
-        os.system("kill "+str(pid))
+        subprocess.call("kill "+str(pid), shell = True)
+    elif t.find("command") != -1:
+        if len(t) > 8:
+            x = t[8:]
+            subprocess.call(x, shell = True)
+        else:
+            subprocess.call(input("command: "), shell = True)
+    elif t.find("help") != -1:
+        print(cli.__doc__)
     elif t == "":
         print("No command given\n")
     else:

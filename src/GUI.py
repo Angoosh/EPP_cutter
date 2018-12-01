@@ -18,6 +18,7 @@ from Gcode import connection
 import instructions as i
 from byteparams import parameter as par
 import os
+import subprocess
 import pickle
 from time import sleep
 import tkinter
@@ -462,7 +463,12 @@ class Widgets(FloatLayout):
                 self.command.text = ""
             elif t == "":
                 self.terminal.text += "No command specified\n"
-                
+            elif t.find("command") != -1:
+                if len(t) > 8:
+                    x = t[8:]
+                    subprocess.call(x, shell = True)
+                else:
+                    subprocess.call(input("command: "), shell = True)
             else:
                 self.terminal.text += "Unknown command: " + self.command.text + "\n"
                 self.command.text = ""

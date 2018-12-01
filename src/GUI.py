@@ -468,7 +468,7 @@ class Widgets(FloatLayout):
                     x = t[8:]
                     subprocess.call(x, shell = True)
                 else:
-                    subprocess.call(input("command: "), shell = True)
+                    self.terminal.text += "Must be in form command <com>"
             else:
                 self.terminal.text += "Unknown command: " + self.command.text + "\n"
                 self.command.text = ""

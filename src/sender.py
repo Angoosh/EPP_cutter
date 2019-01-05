@@ -73,10 +73,10 @@ def action(r):
             print("Command must be in form: G0 X Y Z A")
             return
         try:
-            xx = int(r[x+1:y-1])
-            yy = int(r[y+1:z-1])
-            zz = int(r[z+1:a-1])
-            aa = int(r[a+1:])
+            xx = float(r[x+1:y-1])
+            yy = float(r[y+1:z-1])
+            zz = float(r[z+1:a-1])
+            aa = float(r[a+1:])
         except:
             print("Command must be in form: G0 X Y Z A")
             return
@@ -87,7 +87,7 @@ def action(r):
         na = abs(aa-lasta)
         mx = max(nx, ny, nz, na)
         print(mx)
-#------------------------------test--------------------------------------------
+#------------------------------interpolation--------------------------------------------
         fx, fy, fz, fa = nx, ny, nz, na
         if fx == 0:
             fx = mx
@@ -125,7 +125,7 @@ def action(r):
         byte = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
         ser.write(byte)
         sleep(0.003)
-#---------------------------test-end-------------------------------------------     
+#---------------------------interpolation-end-------------------------------------------     
         lastx, lasty, lastz, lasta = xx, yy, zz, aa
         if nx == mx:
             ser.write(bytearray([1,138,0,0,0,0,0,1,140]))
@@ -185,10 +185,10 @@ def action(r):
             print("Command must be in form: G1 X Y Z A")
             return
         try:
-            xx = int(r[x+1:y-1])
-            yy = int(r[y+1:z-1])
-            zz = int(r[z+1:a-1])
-            aa = int(r[a+1:])
+            xx = float(r[x+1:y-1])
+            yy = float(r[y+1:z-1])
+            zz = float(r[z+1:a-1])
+            aa = float(r[a+1:])
         except:
             print("Command must be in form: G1 X Y Z A")
             return
@@ -199,6 +199,45 @@ def action(r):
         na = abs(aa-lasta)
         mx = max(nx, ny, nz, na)
         print(mx)
+#------------------------------interpolation--------------------------------------------
+        fx, fy, fz, fa = nx, ny, nz, na
+        if fx == 0:
+            fx = mx
+        if fy == 0:
+            fy = mx
+        if fz == 0:
+            fz = mx
+        if fa == 0:
+            fa = mx
+        fx = int(feed/(mx/fx))
+        fy = int(feed/(mx/fy))
+        fz = int(feed/(mx/fz))
+        fa = int(feed/(mx/fa))
+        
+        print(fx, fy, fz, fa)
+        
+        b2,b3,b4,b5,b6,b7,b8 = i.SAP(4, 0, fx)
+        b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
+        byte = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
+        ser.write(byte)
+        print("exxxx: "+str(byte))
+        sleep(0.001)
+        b2,b3,b4,b5,b6,b7,b8 = i.SAP(4, 1, fy)
+        b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
+        byte = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
+        ser.write(byte)
+        sleep(0.003)
+        b2,b3,b4,b5,b6,b7,b8 = i.SAP(4, 2, fz)
+        b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
+        byte = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
+        ser.write(byte)
+        sleep(0.003)
+        b2,b3,b4,b5,b6,b7,b8 = i.SAP(4, 3, fa)
+        b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
+        byte = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
+        ser.write(byte)
+        sleep(0.003)
+#---------------------------interpolation-end-------------------------------------------
         lastx, lasty, lastz, lasta = xx, yy, zz, aa
         if nx == mx:
             ser.write(bytearray([1,138,0,0,0,0,0,1,140]))
@@ -294,6 +333,8 @@ def action(r):
             print("MST")
     elif r == "":
         print("No command specified")
+    elif r == "#":
+        print("Finished")
     else:
         print("Unknown command")
 

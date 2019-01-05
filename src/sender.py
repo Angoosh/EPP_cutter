@@ -89,6 +89,8 @@ def action(r):
         print(mx)
 #------------------------------interpolation--------------------------------------------
         fx, fy, fz, fa = nx, ny, nz, na
+        if mx == 0:
+            mx = 1
         if fx == 0:
             fx = mx
         if fy == 0:
@@ -201,6 +203,8 @@ def action(r):
         print(mx)
 #------------------------------interpolation--------------------------------------------
         fx, fy, fz, fa = nx, ny, nz, na
+        if mx == 0:
+            mx = 1
         if fx == 0:
             fx = mx
         if fy == 0:

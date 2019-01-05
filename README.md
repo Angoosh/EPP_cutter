@@ -17,5 +17,8 @@ for RPi:
 chmod +x rpi_install.sh
 sudo ./rpi_install.sh
 ```
+```
+sudo usermod -a -G dialout USER_NAME
+```
 enjoy!
 

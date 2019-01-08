@@ -75,6 +75,7 @@ def cli(x):
     This is CLI for hot wire EPP cutter. For help enter help.
     
     Instructions are:
+        help - shows help
         port - takes one argument, for connecting to selected port
         connect - connect to port on which cutter is, no arguments
         disconnect - to disconnect from cutter, no arguments
@@ -106,55 +107,55 @@ def cli(x):
         print("G0")
         x = t.find("X")
         y = t.find("Y")
-        z = t.find("Z")
         a = t.find("A")
-        if (x == -1) or (y == -1) or (z == -1) or (a == -1):
-            print("Command must be in form: G0 X Y Z A\n")
+        b = t.find("B")
+        if (x == -1) or (y == -1) or (a == -1) or (b == -1):
+            print("Command must be in form: G0 X Y A B\n")
             return
         try:
             xx = int(t[x+1:y-1])
-            yy = int(t[y+1:z-1])
-            zz = int(t[z+1:a-1])
-            aa = int(t[a+1:])
+            yy = int(t[y+1:a-1])
+            aa = int(t[a+1:b-1])
+            bb = int(t[b+1:])
         except:
-            print("Command must be in form: G0 X Y Z A\n")
+            print("Command must be in form: G0 X Y A B\n")
             return
-        x, y, z, a = Gcode.G0(xx, yy, zz, aa)
+        x, y, a, b = Gcode.G0(xx, yy, aa, bb)
         ser.write(x)
         sleep(0.001)
         ser.write(y)
         sleep(0.001)
-        ser.write(z)
-        sleep(0.001)
         ser.write(a)
+        sleep(0.001)
+        ser.write(b)
     elif t.find("G1") != -1:
         print("G1")
         x = t.find("X")
         y = t.find("Y")
-        z = t.find("Z")
         a = t.find("A")
-        if (x == -1) or (y == -1) or (z == -1) or (a == -1):
-            print("Command must be in form: G1 X Y Z A\n")
+        b = t.find("B")
+        if (x == -1) or (y == -1) or (a == -1) or (b == -1):
+            print("Command must be in form: G1 X Y A B\n")
             return
         try:
             xx = int(t[x+1:y-1])
-            yy = int(t[y+1:z-1])
-            zz = int(t[z+1:a-1])
-            aa = int(t[a+1:])
+            yy = int(t[y+1:a-1])
+            aa = int(t[a+1:b-1])
+            bb = int(t[b+1:])
         except:
-            print("Command must be in form: G1 X Y Z A\n")
+            print("Command must be in form: G1 X Y A B\n")
             return
-        x, y, z, a = Gcode.G1(xx, yy, zz, aa)
+        x, y, a, b = Gcode.G1(xx, yy, aa, bb)
         ser.write(x)
         sleep(0.001)
         ser.write(y)
         sleep(0.001)
-        ser.write(z)
-        sleep(0.001)
         ser.write(a)
+        sleep(0.001)
+        ser.write(b)
     elif t.find("G28") != -1:
         print("G28")
-        x, y, z, a = Gcode.G28()
+        x, y, a, b = Gcode.G28()
         for motor in range (0,4):
             b2,b3,b4,b5,b6,b7,b8 = i.SAP(193,motor,1)
             b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
@@ -170,9 +171,9 @@ def cli(x):
             sleep(0.001)
             ser.write(y)
             sleep(0.001)
-            ser.write(z)
-            sleep(0.001)
             ser.write(a)
+            sleep(0.001)
+            ser.write(b)
     elif t.find("G90") != -1:
         global mode
         mode = Gcode.G90()

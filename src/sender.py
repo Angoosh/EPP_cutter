@@ -33,7 +33,7 @@ except:
 proceed = 0
 mode = "ABS"
 feed = 2047
-lastx, lasty, lastz, lasta = 0, 0, 0, 0
+lastx, lasty, lasta, lastb = 0, 0, 0, 0
 
 #funkce pro threading
 def wait_until_reached():
@@ -61,50 +61,50 @@ def action(r):
     print("i = "+r)
     global mode
     global proceed
-    global lastx, lasty, lastz, lasta
+    global lastx, lasty, lasta, lastb
     global feed
     if r.find("G0") != -1:
         print("G0")
         x = r.find("X")
         y = r.find("Y")
-        z = r.find("Z")
         a = r.find("A")
-        if (x == -1) or (y == -1) or (z == -1) or (a == -1):
-            print("Command must be in form: G0 X Y Z A")
+        b = r.find("B")
+        if (x == -1) or (y == -1) or (a == -1) or (b == -1):
+            print("Command must be in form: G0 X Y A B")
             return
         try:
             xx = float(r[x+1:y-1])
-            yy = float(r[y+1:z-1])
-            zz = float(r[z+1:a-1])
-            aa = float(r[a+1:])
+            yy = float(r[y+1:a-1])
+            aa = float(r[a+1:b-1])
+            bb = float(r[b+1:])
         except:
-            print("Command must be in form: G0 X Y Z A")
+            print("Command must be in form: G0 X Y A B")
             return
-        x, y, z, a = Gcode.G0(xx, yy, zz, aa)
+        x, y, a, b = Gcode.G0(xx, yy, aa, bb)
         nx = abs(xx-lastx)
         ny = abs(yy-lasty)
-        nz = abs(zz-lastz)
         na = abs(aa-lasta)
-        mx = max(nx, ny, nz, na)
+        nb = abs(bb-lastb)
+        mx = max(nx, ny, na, nb)
         print(mx)
 #------------------------------interpolation--------------------------------------------
-        fx, fy, fz, fa = nx, ny, nz, na
+        fx, fy, fa, fb = nx, ny, na, nb
         if mx == 0:
             mx = 1
         if fx == 0:
             fx = mx
         if fy == 0:
             fy = mx
-        if fz == 0:
-            fz = mx
         if fa == 0:
             fa = mx
+        if fb == 0:
+            fb = mx
         fx = int(feed/(mx/fx))
         fy = int(feed/(mx/fy))
-        fz = int(feed/(mx/fz))
         fa = int(feed/(mx/fa))
+        fb = int(feed/(mx/fb))
         
-        print(fx, fy, fz, fa)
+        print(fx, fy, fa, fb)
         
         b2,b3,b4,b5,b6,b7,b8 = i.SAP(4, 0, fx)
         b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
@@ -117,18 +117,18 @@ def action(r):
         byte = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
         ser.write(byte)
         sleep(0.003)
-        b2,b3,b4,b5,b6,b7,b8 = i.SAP(4, 2, fz)
+        b2,b3,b4,b5,b6,b7,b8 = i.SAP(4, 2, fa)
         b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
         byte = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
         ser.write(byte)
         sleep(0.003)
-        b2,b3,b4,b5,b6,b7,b8 = i.SAP(4, 3, fa)
+        b2,b3,b4,b5,b6,b7,b8 = i.SAP(4, 3, fb)
         b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
         byte = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
         ser.write(byte)
         sleep(0.003)
 #---------------------------interpolation-end-------------------------------------------     
-        lastx, lasty, lastz, lasta = xx, yy, zz, aa
+        lastx, lasty, lasta, lastb = xx, yy, aa, bb
         if nx == mx:
             ser.write(bytearray([1,138,0,0,0,0,0,1,140]))
             sleep(0.001)
@@ -136,9 +136,9 @@ def action(r):
             sleep(0.001)
             ser.write(y)
             sleep(0.001)
-            ser.write(z)
-            sleep(0.001)
             ser.write(a)
+            sleep(0.001)
+            ser.write(b)
             print("first")
             pass
         elif ny == mx:
@@ -148,31 +148,31 @@ def action(r):
             sleep(0.001)
             ser.write(x)
             sleep(0.001)
-            ser.write(z)
-            sleep(0.001)
             ser.write(a)
+            sleep(0.001)
+            ser.write(b)
             print("second")
             pass
-        elif nz == mx:
+        elif na == mx:
             ser.write(bytearray([1,138,0,0,0,0,0,4,143]))
             sleep(0.001)
-            ser.write(z)
+            ser.write(a)
             sleep(0.001)
             ser.write(y)
             sleep(0.001)
             ser.write(x)
             sleep(0.001)
-            ser.write(a)
+            ser.write(b)
             print("third")
             pass
         else:
             ser.write(bytearray([1,138,0,0,0,0,0,8,147]))
             sleep(0.001)
-            ser.write(a)
+            ser.write(b)
             sleep(0.001)
             ser.write(y)
             sleep(0.001)
-            ser.write(z)
+            ser.write(a)
             sleep(0.001)
             ser.write(x)
             print("fourth")
@@ -181,44 +181,44 @@ def action(r):
         print("G1")
         x = r.find("X")
         y = r.find("Y")
-        z = r.find("Z")
         a = r.find("A")
-        if (x == -1) or (y == -1) or (z == -1) or (a == -1):
-            print("Command must be in form: G1 X Y Z A")
+        b = r.find("B")
+        if (x == -1) or (y == -1) or (a == -1) or (b == -1):
+            print("Command must be in form: G1 X Y A B")
             return
         try:
             xx = float(r[x+1:y-1])
-            yy = float(r[y+1:z-1])
-            zz = float(r[z+1:a-1])
-            aa = float(r[a+1:])
+            yy = float(r[y+1:a-1])
+            aa = float(r[a+1:b-1])
+            bb = float(r[b+1:])
         except:
-            print("Command must be in form: G1 X Y Z A")
+            print("Command must be in form: G1 X Y A B")
             return
-        x, y, z, a = Gcode.G0(xx, yy, zz, aa)
+        x, y, a, b = Gcode.G0(xx, yy, aa, bb)
         nx = abs(xx-lastx)
         ny = abs(yy-lasty)
-        nz = abs(zz-lastz)
         na = abs(aa-lasta)
-        mx = max(nx, ny, nz, na)
+        nb = abs(bb-lastb)
+        mx = max(nx, ny, na, nb)
         print(mx)
 #------------------------------interpolation--------------------------------------------
-        fx, fy, fz, fa = nx, ny, nz, na
+        fx, fy, fa, fb = nx, ny, na, nb
         if mx == 0:
             mx = 1
         if fx == 0:
             fx = mx
         if fy == 0:
             fy = mx
-        if fz == 0:
-            fz = mx
         if fa == 0:
             fa = mx
+        if fb == 0:
+            fb = mx
         fx = int(feed/(mx/fx))
         fy = int(feed/(mx/fy))
-        fz = int(feed/(mx/fz))
         fa = int(feed/(mx/fa))
+        fb = int(feed/(mx/fb))
         
-        print(fx, fy, fz, fa)
+        print(fx, fy, fa, fb)
         
         b2,b3,b4,b5,b6,b7,b8 = i.SAP(4, 0, fx)
         b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
@@ -231,18 +231,18 @@ def action(r):
         byte = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
         ser.write(byte)
         sleep(0.003)
-        b2,b3,b4,b5,b6,b7,b8 = i.SAP(4, 2, fz)
+        b2,b3,b4,b5,b6,b7,b8 = i.SAP(4, 2, fa)
         b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
         byte = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
         ser.write(byte)
         sleep(0.003)
-        b2,b3,b4,b5,b6,b7,b8 = i.SAP(4, 3, fa)
+        b2,b3,b4,b5,b6,b7,b8 = i.SAP(4, 3, fb)
         b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
         byte = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
         ser.write(byte)
         sleep(0.003)
 #---------------------------interpolation-end-------------------------------------------
-        lastx, lasty, lastz, lasta = xx, yy, zz, aa
+        lastx, lasty, lasta, lastb = xx, yy, aa, bb
         if nx == mx:
             ser.write(bytearray([1,138,0,0,0,0,0,1,140]))
             sleep(0.001)
@@ -250,9 +250,9 @@ def action(r):
             sleep(0.001)
             ser.write(y)
             sleep(0.001)
-            ser.write(z)
-            sleep(0.001)
             ser.write(a)
+            sleep(0.001)
+            ser.write(b)
             print("first")
             pass
         elif ny == mx:
@@ -262,31 +262,31 @@ def action(r):
             sleep(0.001)
             ser.write(x)
             sleep(0.001)
-            ser.write(z)
-            sleep(0.001)
             ser.write(a)
+            sleep(0.001)
+            ser.write(b)
             print("second")
             pass
-        elif nz == mx:
+        elif na == mx:
             ser.write(bytearray([1,138,0,0,0,0,0,4,143]))
             sleep(0.001)
-            ser.write(z)
+            ser.write(a)
             sleep(0.001)
             ser.write(y)
             sleep(0.001)
             ser.write(x)
             sleep(0.001)
-            ser.write(a)
+            ser.write(b)
             print("third")
             pass
         else:
             ser.write(bytearray([1,138,0,0,0,0,0,8,147]))
             sleep(0.001)
-            ser.write(a)
+            ser.write(b)
             sleep(0.001)
             ser.write(y)
             sleep(0.001)
-            ser.write(z)
+            ser.write(a)
             sleep(0.001)
             ser.write(x)
             print("fourth")
@@ -303,14 +303,14 @@ def action(r):
             s = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
             ser.write(s)
             sleep(0.001)
-        x, y, z, a = Gcode.G28()
+        x, y, a, b = Gcode.G28()
         ser.write(x)
         sleep(0.001)
         ser.write(y)
         sleep(0.001)
-        ser.write(z)
-        sleep(0.001)
         ser.write(a)
+        sleep(0.001)
+        ser.write(b)
     elif r.find("G90") != -1:
         global mode
         mode = Gcode.G90()
@@ -364,8 +364,8 @@ with open(file, "rb") as t:
             action(line)
             Xh = 0
             Yh = 0
-            Zh = 0
             Ah = 0
+            Bh = 0
             while True:
                 b2,b3,b4,b5,b6,b7,b8 = i.GAP(11,0)
                 b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
@@ -393,9 +393,9 @@ with open(file, "rb") as t:
                 ser.write(x)
                 a = ser.read(9)
                 if a == b'\x02\x01\x64\x06\x00\x00\x00\x01\x6e':
-                    Zh = 1
+                    Ah = 1
                 else:
-                    Zh = 0
+                    Ah = 0
                 sleep(0.1)
                 b2,b3,b4,b5,b6,b7,b8 = i.GAP(11,3)
                 b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
@@ -403,11 +403,11 @@ with open(file, "rb") as t:
                 ser.write(x)
                 a = ser.read(9)
                 if a == b'\x02\x01\x64\x06\x00\x00\x00\x01\x6e':
-                    Ah = 1
+                    Bh = 1
                 else:
-                    Ah = 0
+                    Bh = 0
                 sleep(0.1)
-                if (Xh == 1) and (Yh == 1) and (Zh == 1) and (Ah == 1):
+                if (Xh == 1) and (Yh == 1) and (Ah == 1) and (Bh == 1):
                     sleep(2)
                     print("home finished")
                     break

@@ -19,35 +19,35 @@ def connection(port):
 mode = config.glob()[0]
 
 
-def G0(X, Y, Z, A):
+def G0(X, Y, A, B):
     b2,b3,b4,b5,b6,b7,b8 = i.MVP(mode,0,X)
     b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
     x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
     b2,b3,b4,b5,b6,b7,b8 = i.MVP(mode,1,Y)
     b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
     y = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
-    b2,b3,b4,b5,b6,b7,b8 = i.MVP(mode,2,Z)
-    b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
-    z = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
-    b2,b3,b4,b5,b6,b7,b8 = i.MVP(mode,3,A)
+    b2,b3,b4,b5,b6,b7,b8 = i.MVP(mode,2,A)
     b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
     a = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
-    return(x, y, z, a)
+    b2,b3,b4,b5,b6,b7,b8 = i.MVP(mode,3,B)
+    b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
+    b = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
+    return(x, y, a, b)
     
-def G1(X, Y, Z, A):
+def G1(X, Y, A, B):
     b2,b3,b4,b5,b6,b7,b8 = i.MVP(mode,0,X)
     b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
     x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
     b2,b3,b4,b5,b6,b7,b8 = i.MVP(mode,1,Y)
     b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
     y = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
-    b2,b3,b4,b5,b6,b7,b8 = i.MVP(mode,2,Z)
-    b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
-    z = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
-    b2,b3,b4,b5,b6,b7,b8 = i.MVP(mode,3,A)
+    b2,b3,b4,b5,b6,b7,b8 = i.MVP(mode,2,A)
     b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
     a = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
-    return(x, y, z, a)
+    b2,b3,b4,b5,b6,b7,b8 = i.MVP(mode,3,B)
+    b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
+    b = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
+    return(x, y, a, b)
     
 def G28():
     b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,13,0,0,0,0,0,0)
@@ -55,10 +55,10 @@ def G28():
     b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,13,0,1,0,0,0,0)
     y = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
     b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,13,0,2,0,0,0,0)
-    z = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
-    b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,13,0,3,0,0,0,0)
     a = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
-    return(x, y, z, a)
+    b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,13,0,3,0,0,0,0)
+    b = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
+    return(x, y, a, b)
     
 def G90():
     global mode

@@ -11,7 +11,7 @@ def glob():
     microstepping = 128     #supplied microstepping - 1-256
     screwpitch = 4          #screw pitch in mm
     
-    return mode, travel, negtravel, sender, motorsteps, microstepping, screwpitch
+    return mode, travel, negtravel, motorsteps, microstepping, screwpitch, sender
 
 #nastaveni microsteppingu, je potreba odkomentovat func() aby bylo mozne aplikovat zmeny
 def func():

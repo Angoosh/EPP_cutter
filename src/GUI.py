@@ -51,7 +51,7 @@ if height < 700:
 mode = config.glob()[0]
 travel = config.glob()[1]
 negtravel = config.glob()[2]
-sender = config.glob()[3]
+sender = config.glob()[6]
 
 #promenne pro kontrolu, zda prislusna osa hybe
 x1 = 0

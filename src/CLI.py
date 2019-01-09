@@ -12,12 +12,17 @@ import os
 import subprocess
 import config
 
-mode = "ABS"
+#nacteni config promennych
+mode = config.glob()[0]
+travel = config.glob()[1]
+negtravel = config.glob()[2]
+sender = config.glob()[3]
+
 serPort = "/dev/ttyACM0"
 file = ""
 
 def openSender():
-    os.system("python3 sender.py")
+    os.system("python3 "+sender)
 
 def sendComm():
     f = open("comm.pickle", "wb")

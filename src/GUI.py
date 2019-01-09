@@ -51,7 +51,8 @@ if height < 700:
 mode = config.glob()[0]
 travel = config.glob()[1]
 negtravel = config.glob()[2]
-#serport = ""
+sender = config.glob()[3]
+
 #promenne pro kontrolu, zda prislusna osa hybe
 x1 = 0
 y1 = 0
@@ -82,7 +83,7 @@ def wait_until_reached():
 
 #funkce otevreni senderu jako novy thread
 def openSender():
-    os.system("python3 sender.py")
+    os.system("python3 "+sender)
 #funkce ulozeni krytickych dat pro sender do souboru
 def sendComm():
     f = open("comm.pickle", "wb")

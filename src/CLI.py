@@ -16,7 +16,7 @@ import config
 mode = config.glob()[0]
 travel = config.glob()[1]
 negtravel = config.glob()[2]
-sender = config.glob()[3]
+sender = config.glob()[6]
 
 serPort = "/dev/ttyACM0"
 file = ""

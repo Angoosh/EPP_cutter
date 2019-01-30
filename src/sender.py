@@ -10,6 +10,7 @@ import Gcode
 import pickle
 from time import sleep
 import os
+import RPi.GPIO as GPIO
 
 #cteni konfiguracniho souboru
 f = open("comm.pickle", "rb")
@@ -17,7 +18,7 @@ serPort = pickle.load(f)
 file = pickle.load(f)
 f.close()
 
-
+#ziskani informaci o procesu a nasledne zapsani do souboru
 pid = os.getpid()
 f = open("comm.pickle", "wb")
 pickle.dump(pid, f)

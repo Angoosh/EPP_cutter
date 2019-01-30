@@ -14,8 +14,10 @@ def edge_detected(pin):
 
 if __name__ == "__main__":
         try:
-                GPIO.setmode(GPIO.BOARD)
-                GPIO.setup(5, GPIO.IN)
+                GPIO.setmode(GPIO.BCM)
+                GPIO.setup(3, GPIO.IN)
+                GPIO.setup(4, GPIO.OUT)
+                GPIO.output(4, GPIO.HIGH)
                 GPIO.add_event_detect(5, GPIO.BOTH, callback=edge_detected, bouncetime=10)
                 t = threading.Timer(3.0, shutdown)
                 sleep(0.2)

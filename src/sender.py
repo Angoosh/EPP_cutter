@@ -10,7 +10,6 @@ import Gcode
 import pickle
 from time import sleep
 import os
-import RPi.GPIO as GPIO
 
 #cteni konfiguracniho souboru
 f = open("comm.pickle", "rb")

@@ -18,6 +18,12 @@ for RPi:
 chmod +x rpi_install.sh
 sudo ./rpi_install.sh
 ```
+Connect your power button to GPIO 3 and GND <br />
+Connect your power button light to GPIO 2 and GND <br />
+Connect your Emergency button to GPIO 14 and GND <br />
+Connect your Emergency button light to GPIO 4 and GND <br />
+<br />
+(all GPIOs are BCM named) <br />
 ```
 sudo usermod -a -G dialout USER_NAME
 ```

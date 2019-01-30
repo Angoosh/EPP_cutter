@@ -22,6 +22,13 @@ pid = os.getpid()
 f = open("comm.pickle", "wb")
 pickle.dump(pid, f)
 f.close()
+sleep(1)
+
+#zapnuti EMERGENCY tlacitka
+if os.path.exists("/home/pi") or os.path.exists("/home/rpi"):
+    os.system("python3 EMERGENCY.py")
+else:
+    print("Not running on RPi")
 
 #pripojeni k portu
 try:

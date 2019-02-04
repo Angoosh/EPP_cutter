@@ -344,13 +344,16 @@ def action(r):
             print("MST")
     elif r == "":
         print("No command specified")
-        ser.write(Gcode.M104(0))
+        temp = Gcode.M104(0)
+        ser.write(temp)
     elif r == "#":
         print("Finished")
-        ser.write(Gcode.M104(0))
+        temp = Gcode.M104(0)
+        ser.write(temp)
     else:
+        temp = Gcode.M104(0)
         print("Unknown command")
-        ser.write(Gcode.M104(0))
+        ser.write(temp)
 
 
 with open(file, "rb") as t:

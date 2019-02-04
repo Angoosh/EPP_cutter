@@ -27,5 +27,12 @@ Connect your Emergency button light to GPIO 4 and GND <br />
 ```
 sudo usermod -a -G dialout USER_NAME
 ```
+When installation is finished pi will ask for new password. It is password for samba. <br />
+Path to samba drive is: <br />
+  On Windows: \\RPI_IP_ADDRESS\gcodes <br />
+  On Linux: smb://RPI_IP_ADDRESS/gcodes <br />
+<br />
+When selecting gcode the path is: gcodes/YOUR_GCODE.gcode
+
 enjoy!
 

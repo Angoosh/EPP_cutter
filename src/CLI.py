@@ -12,6 +12,18 @@ import os
 import subprocess
 import config
 
+#kontrola zda je uzivatel prihlasen
+prog_pid = os.getpid()
+try:
+    log = open("sec.pickle", "rb")
+    login = pickle.load(log)
+    log.close()
+    os.system("rm -rf sec.pickle")
+    if login == "OK":
+        pass
+except:
+    os.system("kill "+str(prog_pid))
+
 #nacteni config promennych
 mode = config.glob()[0]
 travel = config.glob()[1]

@@ -24,6 +24,17 @@ import pickle
 from time import sleep
 import tkinter
 
+#kontrola zda je uzivatel prihlasen
+prog_pid = os.getpid()
+try:
+    log = open("sec.pickle", "rb")
+    login = pickle.load(log)
+    log.close()
+    os.system("rm -rf sec.pickle")
+    if login == "OK":
+        pass
+except:
+    os.system("kill "+str(prog_pid))
 
 #zjistovani rozliseni obrazovky
 root = tkinter.Tk()

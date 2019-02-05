@@ -32,7 +32,9 @@ Path to samba drive is: <br />
   On Windows: \\RPI_IP_ADDRESS\gcodes <br />
   On Linux: smb://RPI_IP_ADDRESS/gcodes <br />
 <br />
-When selecting gcode the path is: gcodes/YOUR_GCODE.gcode
+When selecting gcode the path is: gcodes/YOUR_GCODE.gcode <br />
+<br />
+Default username is: cutter and password is Pizza <br />
 
 enjoy!
 

@@ -18,6 +18,9 @@ for i in range (0,3):
         subprocess.call(["clear"], shell = True)
         subprocess.call(["python3 CLI.py"], shell = True)
         break
+
+    #login
+    subprocess.call(["python3 Login.py"], shell = True)
     
     #kontrola, zda je zaple GUI os / ssh s parametrem -X a zda je nainstalovane kivy jinak se spusti CLI
     try:

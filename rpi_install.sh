@@ -28,7 +28,7 @@ echo "cd ~/cutter/src" >> .bashrc
 echo "./main.py" >> .bashrc
 cd ~/cutter
 sudo mv powerbtn.py /usr/bin/
-sudo echo "python /usr/bin/powerbtn.py &" >> rc.local
+sudo echo "python /usr/bin/powerbtn.py &" >> /etc/rc.local
 rm rpi_install.sh
 rm ubuntu_install.sh
 rm README.md

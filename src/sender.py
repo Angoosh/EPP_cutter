@@ -27,6 +27,9 @@ sleep(1)
 #zapnuti EMERGENCY tlacitka
 if os.path.exists("/home/pi") or os.path.exists("/home/rpi"):
     os.system("python3 EMERGENCY.py")
+    import RPi.GPIO as GPIO
+    gpio.setmode(GPIO.BCM)
+    gpio.setup(4, GPIO.OUT)
 else:
     print("Not running on RPi")
 
@@ -41,6 +44,12 @@ proceed = 0
 mode = "ABS"
 feed = 2047
 lastx, lasty, lasta, lastb = 0, 0, 0, 0
+
+#load emergency procesu
+sleep(1)
+f = open("emergency.pickle", "rb")
+emerg_pid = pickle.load(f)
+f.close()
 
 #funkce pro threading
 def wait_until_reached():
@@ -345,13 +354,22 @@ def action(r):
     elif r == "":
         print("No command specified")
         temp = Gcode.M104(0)
+        if os.path.exists("/home/pi") or os.path.exists("/home/rpi"):
+            os.system("kill "+emerg_pid)
+            GPIO.output(4, GPIO.LOW)
         ser.write(temp)
     elif r == "#":
         print("Finished")
         temp = Gcode.M104(0)
+        if os.path.exists("/home/pi") or os.path.exists("/home/rpi"):
+            os.system("kill "+emerg_pid)
+            GPIO.output(4, GPIO.LOW)
         ser.write(temp)
     else:
         temp = Gcode.M104(0)
+        if os.path.exists("/home/pi") or os.path.exists("/home/rpi"):
+            os.system("kill "+emerg_pid)
+            GPIO.output(4, GPIO.LOW)
         print("Unknown command")
         ser.write(temp)
 

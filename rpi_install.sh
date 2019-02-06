@@ -27,8 +27,11 @@ cd ~/
 echo "cd ~/cutter/src" >> .bashrc
 echo "./main.py" >> .bashrc
 cd ~/cutter
-sudo mv powerbtn.py /usr/bin/
-sudo echo "python /usr/bin/powerbtn.py &" >> /etc/rc.local
+sudo mv powerbtn.py /usr/local/bin
+sudo chmod +x /usr/local/bin/powerbtn.py
+sudo mv powerbtn.sh /etc/init.d
+sudo chmod +x /etc/init.d/powerbtn.sh
+sudo update-rc.d powerbtn.sh defaults
 rm rpi_install.sh
 rm ubuntu_install.sh
 rm README.md

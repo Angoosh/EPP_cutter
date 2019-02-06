@@ -19,7 +19,7 @@ if __name__ == "__main__":
                 GPIO.setup(4, GPIO.OUT)
                 GPIO.output(4, GPIO.HIGH)
                 GPIO.setup(15, GPIO.OUT)
-                GPIO.output(15, GPIO.LOW)
+                GPIO.output(15, GPIO.HIGH)
                 GPIO.add_event_detect(5, GPIO.BOTH, callback=edge_detected, bouncetime=10)
                 t = threading.Timer(3.0, shutdown)
                 sleep(0.2)

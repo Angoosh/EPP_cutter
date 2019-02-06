@@ -8,6 +8,9 @@ f.close()
 
 self_pid = os.getpid()
 
+f = open("emergency.pickle", "wb")
+pickle.dump(self_pid, f)
+f.close()
 
 def EMERGENCY_STOP():
     os.system("sudo kill "+str(pid))

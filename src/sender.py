@@ -27,7 +27,7 @@ sleep(1)
 
 #zapnuti EMERGENCY tlacitka
 if os.path.exists("/home/pi") or os.path.exists("/home/rpi"):
-    subprocess.call("python3 EMERGENCY.py &", shell = True)
+    subprocess.call("python3 EMERGENCY.py", shell = True)
     import RPi.GPIO as GPIO
     GPIO.setwarnings(False)
     GPIO.setmode(GPIO.BCM)

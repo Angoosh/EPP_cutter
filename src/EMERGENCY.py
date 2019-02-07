@@ -2,7 +2,6 @@ import RPi.GPIO as GPIO
 import os
 from time import sleep
 import pickle
-import CLI
 
 f = open("comm.pickle", "rb")
 pid = pickle.load(f)

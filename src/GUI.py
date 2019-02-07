@@ -411,9 +411,9 @@ class Widgets(FloatLayout):
                 sleep(0.001)
                 ser.write(y)
                 sleep(0.001)
-                ser.write(z)
-                sleep(0.001)
                 ser.write(a)
+                sleep(0.001)
+                ser.write(b)
                 self.terminal.text += t + "\n"
                 self.command.text = ""
             elif t.find("G28") != -1:

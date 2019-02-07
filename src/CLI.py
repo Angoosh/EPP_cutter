@@ -208,12 +208,11 @@ def cli(x):
         heat, send = Gcode.M104(temp)
         print(heat)
         ser.write(send)
-    elif t.find("MST") != -1:
-        for motor in range (0,4):
-            b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,3, 0, motor, 0, 0, 0, 0)
-            x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
-            ser.write(x)
-            print("MST")
+    elif t.find("RESET") != -1:
+        b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,255, 0, 0, 0, 0, 4, 210)
+        x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
+        ser.write(x)
+        print("RESET!")
     elif t.find("port") != -1:
         serPort = t[5:]
     elif t.find("connect") != -1:

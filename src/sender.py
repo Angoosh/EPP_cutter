@@ -59,10 +59,8 @@ def wait_until_reached():
     while True:
         global proceed
         r = ser.read(9)
-        print(r)
         if r == b'\x02\x01\x80\x8a\x00\x00\x00\x01\x0e':
             proceed = 0
-            print("x")
             break
         if r == b'\x02\x01\x80\x8a\x00\x00\x00\x02\x0f':
             proceed = 0
@@ -77,20 +75,17 @@ def wait_until_reached():
 #rozlysovani jednotlivych prikazu gcodu
 def action(r):
     r = r.decode("utf-8")
-    print("i = "+r)
     global mode
     global st
     global proceed
     global lastx, lasty, lasta, lastb
     global feed
     if r.find("G0") != -1:
-        print("G0")
         x = r.find("X")
         y = r.find("Y")
         a = r.find("A")
         b = r.find("B")
         if (x == -1) or (y == -1) or (a == -1) or (b == -1):
-            print("Command must be in form: G0 X Y A B")
             return
         try:
             xx = float(r[x+1:y-1])
@@ -98,7 +93,6 @@ def action(r):
             aa = float(r[a+1:b-1])
             bb = float(r[b+1:])
         except:
-            print("Command must be in form: G0 X Y A B")
             return
         x, y, a, b = Gcode.G0(xx, yy, aa, bb)
         nx = abs(xx-lastx)
@@ -106,7 +100,6 @@ def action(r):
         na = abs(aa-lasta)
         nb = abs(bb-lastb)
         mx = max(nx, ny, na, nb)
-        print(mx)
 #------------------------------interpolation--------------------------------------------
         fx, fy, fa, fb = nx, ny, na, nb
         if mx == 0:
@@ -124,13 +117,10 @@ def action(r):
         fa = int(feed/(mx/fa))
         fb = int(feed/(mx/fb))
         
-        print(fx, fy, fa, fb)
-        
         b2,b3,b4,b5,b6,b7,b8 = i.SAP(4, 0, fx)
         b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
         byte = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
         ser.write(byte)
-        print("exxxx: "+str(byte))
         sleep(st)
         b2,b3,b4,b5,b6,b7,b8 = i.SAP(4, 1, fy)
         b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
@@ -159,7 +149,6 @@ def action(r):
             ser.write(a)
             sleep(st)
             ser.write(b)
-            print("first")
             pass
         elif ny == mx:
             ser.write(bytearray([1,138,0,0,0,0,0,2,141]))
@@ -171,7 +160,6 @@ def action(r):
             ser.write(a)
             sleep(st)
             ser.write(b)
-            print("second")
             pass
         elif na == mx:
             ser.write(bytearray([1,138,0,0,0,0,0,4,143]))
@@ -183,7 +171,6 @@ def action(r):
             ser.write(x)
             sleep(st)
             ser.write(b)
-            print("third")
             pass
         else:
             ser.write(bytearray([1,138,0,0,0,0,0,8,147]))
@@ -195,16 +182,13 @@ def action(r):
             ser.write(a)
             sleep(st)
             ser.write(x)
-            print("fourth")
             pass
     elif r.find("G1") != -1:
-        print("G1")
         x = r.find("X")
         y = r.find("Y")
         a = r.find("A")
         b = r.find("B")
         if (x == -1) or (y == -1) or (a == -1) or (b == -1):
-            print("Command must be in form: G1 X Y A B")
             return
         try:
             xx = float(r[x+1:y-1])
@@ -212,7 +196,6 @@ def action(r):
             aa = float(r[a+1:b-1])
             bb = float(r[b+1:])
         except:
-            print("Command must be in form: G1 X Y A B")
             return
         x, y, a, b = Gcode.G0(xx, yy, aa, bb)
         nx = abs(xx-lastx)
@@ -220,7 +203,6 @@ def action(r):
         na = abs(aa-lasta)
         nb = abs(bb-lastb)
         mx = max(nx, ny, na, nb)
-        print(mx)
 #------------------------------interpolation--------------------------------------------
         fx, fy, fa, fb = nx, ny, na, nb
         if mx == 0:
@@ -238,13 +220,10 @@ def action(r):
         fa = int(feed/(mx/fa))
         fb = int(feed/(mx/fb))
         
-        print(fx, fy, fa, fb)
-        
         b2,b3,b4,b5,b6,b7,b8 = i.SAP(4, 0, fx)
         b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
         byte = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
         ser.write(byte)
-        print("exxxx: "+str(byte))
         sleep(st)
         b2,b3,b4,b5,b6,b7,b8 = i.SAP(4, 1, fy)
         b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,b2,b3,b4,b5,b6,b7,b8)
@@ -312,7 +291,6 @@ def action(r):
             print("fourth")
             pass
     elif r.find("G28") != -1:
-        print("G28")
         for motor in range (0,4):
             b2,b3,b4,b5,b6,b7,b8 = i.SAP(193,motor,1)
             b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
@@ -335,18 +313,14 @@ def action(r):
     elif r.find("G90") != -1:
         global mode
         mode = Gcode.G90()
-        print("G90")
     elif r.find("G91") != -1:
         mode = Gcode.G91()
-        print("G91")
     elif r.find("M104") != -1:
         a = r.find("S")
         if a == -1:
-            print("Command must be in form: M104 S")
             return
         temp = int(r[a+1:])
         heat, send = Gcode.M104(temp)
-        print(heat)
         ser.write(send)
         sleep(st)
     elif r.find("MST") != -1:
@@ -355,16 +329,13 @@ def action(r):
             x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
             ser.write(x)
             sleep(st)
-            print("MST")
     elif r == "":
-        print("No command specified")
         nothing, temp = Gcode.M104(0)
         if os.path.exists("/home/pi") or os.path.exists("/home/rpi"):
             os.system("kill "+str(emerg_pid))
             GPIO.output(4, GPIO.LOW)
         ser.write(temp)
     elif r == "#":
-        print("Finished")
         nothing, temp = Gcode.M104(0)
         if os.path.exists("/home/pi") or os.path.exists("/home/rpi"):
             os.system("kill "+str(emerg_pid))
@@ -375,7 +346,6 @@ def action(r):
         if os.path.exists("/home/pi") or os.path.exists("/home/rpi"):
             os.system("kill "+str(emerg_pid))
             GPIO.output(4, GPIO.LOW)
-        print("Unknown command")
         ser.write(temp)
 
 
@@ -387,7 +357,6 @@ with open(file, "rb") as t:
             action(line)
             while True:
                 r = ser.read(9)
-                print(r)
                 if r == b'\x02\x01\x80\x8a\x00\x00\x00\x01\x0e':
                     break
                 if r == b'\x02\x01\x80\x8a\x00\x00\x00\x02\x0f':

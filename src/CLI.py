@@ -223,6 +223,7 @@ def cli(x):
                 b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
                 byte = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
                 ser.write(byte)
+                sleep(0.001)
         except: 
             ""
     elif t.find("disconnect") != -1:

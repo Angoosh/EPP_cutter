@@ -149,6 +149,7 @@ def action(r):
             ser.write(a)
             sleep(st)
             ser.write(b)
+            print("OK1")
             pass
         elif ny == mx:
             ser.write(bytearray([1,138,0,0,0,0,0,2,141]))
@@ -160,6 +161,7 @@ def action(r):
             ser.write(a)
             sleep(st)
             ser.write(b)
+            print("OK2")
             pass
         elif na == mx:
             ser.write(bytearray([1,138,0,0,0,0,0,4,143]))
@@ -171,6 +173,7 @@ def action(r):
             ser.write(x)
             sleep(st)
             ser.write(b)
+            print("OK3")
             pass
         else:
             ser.write(bytearray([1,138,0,0,0,0,0,8,147]))
@@ -182,6 +185,7 @@ def action(r):
             ser.write(a)
             sleep(st)
             ser.write(x)
+            print("OK4")
             pass
     elif r.find("G1") != -1:
         x = r.find("X")
@@ -252,7 +256,7 @@ def action(r):
             ser.write(a)
             sleep(st)
             ser.write(b)
-            print("first")
+            print("OK1")
             pass
         elif ny == mx:
             ser.write(bytearray([1,138,0,0,0,0,0,2,141]))
@@ -264,7 +268,7 @@ def action(r):
             ser.write(a)
             sleep(st)
             ser.write(b)
-            print("second")
+            print("OK2")
             pass
         elif na == mx:
             ser.write(bytearray([1,138,0,0,0,0,0,4,143]))
@@ -276,7 +280,7 @@ def action(r):
             ser.write(x)
             sleep(st)
             ser.write(b)
-            print("third")
+            print("OK3")
             pass
         else:
             ser.write(bytearray([1,138,0,0,0,0,0,8,147]))
@@ -288,7 +292,7 @@ def action(r):
             ser.write(a)
             sleep(st)
             ser.write(x)
-            print("fourth")
+            print("OK4")
             pass
     elif r.find("G28") != -1:
         for motor in range (0,4):

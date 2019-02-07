@@ -2,6 +2,7 @@ import RPi.GPIO as GPIO
 import os
 from time import sleep
 import pickle
+import CLI
 
 f = open("comm.pickle", "rb")
 pid = pickle.load(f)
@@ -18,6 +19,7 @@ def EMERGENCY_STOP(x):
     os.system("rm comm.pickle")
     os.system("kill "+str(pid))
     GPIO.output(4, GPIO.LOW)
+    CLI.RESET()
     exit()
 
 if __name__ == "__main__":

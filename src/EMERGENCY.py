@@ -23,7 +23,7 @@ if __name__ == "__main__":
     try:
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BCM)
-        GPIO.setup(14, GPIO.IN)
+        GPIO.setup(14, GPIO.IN, pull_up_down=GPIO.PUD_UP)
         GPIO.setup(4, GPIO.OUT)
         GPIO.output(4, GPIO.HIGH)
         GPIO.add_event_detect(14, GPIO.BOTH, callback=EMERGENCY_STOP, bouncetime=10)

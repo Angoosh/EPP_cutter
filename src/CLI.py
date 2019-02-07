@@ -58,10 +58,17 @@ def gcoload(x):
             s = x
             try:
                 if (".g" in s) or (".gco" in s) or (".gcode" in s):
-                    with open(s) as f:
-                        file = s
-                        f.read()
-                        print("Gcode loaded\n")
+                    try:
+                        with open(s) as f:
+                            file = s
+                            f.read()
+                            print("Gcode loaded\n")
+                    except:
+                        s = "gcodes/"+s
+                        with open(s) as f:
+                            file = s
+                            f.read()
+                            print("Gcode loaded\n")
                 else:
                     print("Not a gcode\n")
             except:

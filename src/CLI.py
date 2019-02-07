@@ -258,5 +258,5 @@ def cli(x):
 
 print(cli.__doc__)
 while True:
-    x = input()
+    x = input("CLI: ")
     cli(x)

@@ -166,10 +166,10 @@ def cli(x):
                 ser.write(b)
             else:
                 print("max travel X,A = 900 Y,B = 420")
-                print(globA)
-                print(globB)
-                print(globX)
-                print(globY)
+                print("X = "+str(globX))
+                print("Y = "+str(globY))
+                print("A = "+str(globA))
+                print("B = "+str(globB))
         else:
             if xx <= 900 and yy <= 420 and aa <= 900 and bb <= 420:
                 globX = xx
@@ -217,10 +217,10 @@ def cli(x):
                 ser.write(b)
             else:
                 print("max travel X,A = 900 Y,B = 420")
-                print(globA)
-                print(globB)
-                print(globX)
-                print(globY)
+                print("X = "+str(globX))
+                print("Y = "+str(globY))
+                print("A = "+str(globA))
+                print("B = "+str(globB))
         else:
             if xx <= 900 and yy <= 420 and aa <= 900 and bb <= 420:
                 globX = xx

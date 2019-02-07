@@ -21,6 +21,7 @@ def EMERGENCY_STOP():
 
 if __name__ == "__main__":
     try:
+        GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(14, GPIO.IN)
         GPIO.setup(4, GPIO.OUT)

@@ -46,7 +46,7 @@ proceed = 0
 mode = "ABS"
 feed = 2047
 lastx, lasty, lasta, lastb = 0, 0, 0, 0
-st = 0.00001 #delaymezi posilanim dat
+st = 0.0001 #delay mezi posilanim dat
 
 #load emergency procesu
 sleep(1)

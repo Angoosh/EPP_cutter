@@ -14,7 +14,8 @@ pickle.dump(self_pid, f)
 f.close()
 
 def EMERGENCY_STOP():
-    os.system("sudo kill "+str(pid))
+    os.system("rm comm.pickle")
+    os.system("kill "+str(pid))
     GPIO.output(4, GPIO.LOW)
     __name__ = "else"
 

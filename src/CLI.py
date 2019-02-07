@@ -199,7 +199,7 @@ def cli(x):
             globY = globY + yy
             globA = globA + aa
             globB = globB + bb
-            if globX <= 900 and globY <= 420 and globA <=900 and globB <=420:
+            if globX <= 900 and globY <= 420 and globA <= 900 and globB <= 420:
                 ser.write(x)
                 sleep(0.001)
                 ser.write(y)
@@ -209,6 +209,10 @@ def cli(x):
                 ser.write(b)
             else:
                 print("max travel X,A = 900 Y,B = 420")
+                print(globA)
+                print(globB)
+                print(globX)
+                print(globY)
         else:
             if xx <= 900 and yy <= 420 and aa <= 900 and bb <= 420:
                 ser.write(x)

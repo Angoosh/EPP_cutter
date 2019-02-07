@@ -218,6 +218,11 @@ def cli(x):
             ser = Gcode.connection(serPort)
             sleep(0.2)
             config.func()
+            for motor in range (0,4):
+                b2,b3,b4,b5,b6,b7,b8 = i.SAP(4, motor, 2047)
+                b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
+                byte = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
+                ser.write(byte)
         except: 
             ""
     elif t.find("disconnect") != -1:

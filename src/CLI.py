@@ -114,8 +114,8 @@ def cli(x):
             G90
             G91
             M104 S
-            MST
-            
+        
+        RESET - for resetting TMCM-6110, reconnect required    
         command - for direct single line shell command input. If needed more commands
                   it must be in form: <first command> ; <second command> ; ...
                   

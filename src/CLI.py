@@ -330,8 +330,5 @@ def cli(x):
 
 print(cli.__doc__)
 while True:
-    try:
-        x = input("CLI: ")
-        cli(x)
-    except:
-        print("Only UTF-8")
+    x = input("CLI: ")
+    cli(x)

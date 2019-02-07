@@ -14,7 +14,7 @@ f = open("emergency.pickle", "wb")
 pickle.dump(self_pid, f)
 f.close()
 
-def EMERGENCY_STOP():
+def EMERGENCY_STOP(x):
     os.system("rm comm.pickle")
     os.system("kill "+str(pid))
     GPIO.output(4, GPIO.LOW)

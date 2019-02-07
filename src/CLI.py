@@ -165,7 +165,7 @@ def cli(x):
                 sleep(0.001)
                 ser.write(b)
             else:
-                print("max travel X,A = 900 Y,B = 420)
+                print("max travel X,A = 900 Y,B = 420")
         else:
             if xx <= 900 and yy <= 420 and aa <= 900 and bb <= 420:
                 ser.write(x)
@@ -176,7 +176,7 @@ def cli(x):
                 sleep(0.001)
                 ser.write(b)
             else:
-                print("max travel X,A = 900 Y,B = 420)
+                print("max travel X,A = 900 Y,B = 420")
     elif t.find("G1") != -1:
         x = t.find("X")
         y = t.find("Y")
@@ -208,7 +208,7 @@ def cli(x):
                 sleep(0.001)
                 ser.write(b)
             else:
-                print("max travel X,A = 900 Y,B = 420)
+                print("max travel X,A = 900 Y,B = 420")
         else:
             if xx <= 900 and yy <= 420 and aa <= 900 and bb <= 420:
                 ser.write(x)
@@ -219,7 +219,7 @@ def cli(x):
                 sleep(0.001)
                 ser.write(b)
             else:
-                print("max travel X,A = 900 Y,B = 420)
+                print("max travel X,A = 900 Y,B = 420")
     elif t.find("G28") != -1:
         x, y, a, b = Gcode.G28()
         for motor in range (0,4):

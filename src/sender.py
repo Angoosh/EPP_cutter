@@ -10,6 +10,7 @@ import Gcode
 import pickle
 from time import sleep
 import os
+import subprocess
 
 #cteni konfiguracniho souboru
 f = open("comm.pickle", "rb")
@@ -26,10 +27,11 @@ sleep(1)
 
 #zapnuti EMERGENCY tlacitka
 if os.path.exists("/home/pi") or os.path.exists("/home/rpi"):
-    os.system("python3 EMERGENCY.py")
+    subprocess.call("python3 EMERGENCY.py &", shell = True)
     import RPi.GPIO as GPIO
-    gpio.setmode(GPIO.BCM)
-    gpio.setup(4, GPIO.OUT)
+    GPIO.setwarnings(False)
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(4, GPIO.OUT)
 else:
     print("Not running on RPi")
 

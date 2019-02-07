@@ -19,7 +19,6 @@ def EMERGENCY_STOP(x):
     os.system("rm comm.pickle")
     os.system("kill "+str(pid))
     GPIO.output(4, GPIO.LOW)
-    CLI.RESET()
     exit()
 
 if __name__ == "__main__":

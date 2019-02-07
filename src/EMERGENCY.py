@@ -5,6 +5,7 @@ import pickle
 
 f = open("comm.pickle", "rb")
 pid = pickle.load(f)
+print("EMERGENCY PID CALLBACK:  "+str(pid))
 f.close()
 
 self_pid = os.getpid()
@@ -17,7 +18,7 @@ def EMERGENCY_STOP():
     os.system("rm comm.pickle")
     os.system("kill "+str(pid))
     GPIO.output(4, GPIO.LOW)
-    __name__ = "else"
+    os.system("kill +"str(self_pid))
 
 if __name__ == "__main__":
     try:

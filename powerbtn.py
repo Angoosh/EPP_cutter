@@ -16,8 +16,8 @@ if __name__ == "__main__":
         try:
                 GPIO.setmode(GPIO.BCM)
                 GPIO.setup(3, GPIO.IN)
-                GPIO.setup(4, GPIO.OUT)
-                GPIO.output(4, GPIO.HIGH)
+                GPIO.setup(2, GPIO.OUT)
+                GPIO.output(2, GPIO.HIGH)
                 GPIO.setup(15, GPIO.OUT)
                 GPIO.output(15, GPIO.HIGH)
                 GPIO.add_event_detect(5, GPIO.BOTH, callback=edge_detected, bouncetime=10)

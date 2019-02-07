@@ -86,7 +86,14 @@ def STOP():
         sleep(0.001)
     sleep(0.001)
     send = Gcode.M104(0)[1]
-    ser.write(send)                
+    ser.write(send)   
+
+def RESET():
+    b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,255, 0, 0, 0, 0, 4, 210)
+    x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
+    ser.write(x)
+    print("RESET!")
+    
 def cli(x):
     """
     This is CLI for hot wire EPP cutter. For help enter help.
@@ -209,10 +216,7 @@ def cli(x):
         print(heat)
         ser.write(send)
     elif t.find("RESET") != -1:
-        b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,255, 0, 0, 0, 0, 4, 210)
-        x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
-        ser.write(x)
-        print("RESET!")
+        RESET()
     elif t.find("port") != -1:
         serPort = t[5:]
     elif t.find("connect") != -1:

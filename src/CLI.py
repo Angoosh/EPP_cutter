@@ -29,6 +29,10 @@ mode = config.glob()[0]
 travel = config.glob()[1]
 negtravel = config.glob()[2]
 sender = config.glob()[6]
+globX = 0
+globY = 0
+globA = 0
+globB = 0
 
 serPort = "/dev/ttyACM0"
 file = ""
@@ -89,6 +93,8 @@ def STOP():
     ser.write(send)   
 
 def RESET():
+    global globX, globY, globA, globB
+    globX, globY, globA, globB = 0,0,0,0
     b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,255, 0, 0, 0, 0, 4, 210)
     x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
     ser.write(x)
@@ -126,6 +132,7 @@ def cli(x):
     global serPort
     global ser
     global file
+    global globX, globY, globA, globB
     
     if t.find("G0") != -1:
         x = t.find("X")
@@ -144,13 +151,32 @@ def cli(x):
             print("Command must be in form: G0 X Y A B\n")
             return
         x, y, a, b = Gcode.G0(xx, yy, aa, bb)
-        ser.write(x)
-        sleep(0.001)
-        ser.write(y)
-        sleep(0.001)
-        ser.write(a)
-        sleep(0.001)
-        ser.write(b)
+        if mode == "REL":
+            globX = globX + xx
+            globY = globY + yy
+            globA = globA + aa
+            globB = globB + bb
+            if globX <= 900 and globY <= 420 and globA <=900 and globB <=420:
+                ser.write(x)
+                sleep(0.001)
+                ser.write(y)
+                sleep(0.001)
+                ser.write(a)
+                sleep(0.001)
+                ser.write(b)
+            else:
+                print("max travel X,A = 900 Y,B = 420)
+        else:
+            if xx <= 900 and yy <= 420 and aa <= 900 and bb <= 420:
+                ser.write(x)
+                sleep(0.001)
+                ser.write(y)
+                sleep(0.001)
+                ser.write(a)
+                sleep(0.001)
+                ser.write(b)
+            else:
+                print("max travel X,A = 900 Y,B = 420)
     elif t.find("G1") != -1:
         x = t.find("X")
         y = t.find("Y")
@@ -168,13 +194,32 @@ def cli(x):
             print("Command must be in form: G1 X Y A B\n")
             return
         x, y, a, b = Gcode.G1(xx, yy, aa, bb)
-        ser.write(x)
-        sleep(0.001)
-        ser.write(y)
-        sleep(0.001)
-        ser.write(a)
-        sleep(0.001)
-        ser.write(b)
+        if mode == "REL":
+            globX = globX + xx
+            globY = globY + yy
+            globA = globA + aa
+            globB = globB + bb
+            if globX <= 900 and globY <= 420 and globA <=900 and globB <=420:
+                ser.write(x)
+                sleep(0.001)
+                ser.write(y)
+                sleep(0.001)
+                ser.write(a)
+                sleep(0.001)
+                ser.write(b)
+            else:
+                print("max travel X,A = 900 Y,B = 420)
+        else:
+            if xx <= 900 and yy <= 420 and aa <= 900 and bb <= 420:
+                ser.write(x)
+                sleep(0.001)
+                ser.write(y)
+                sleep(0.001)
+                ser.write(a)
+                sleep(0.001)
+                ser.write(b)
+            else:
+                print("max travel X,A = 900 Y,B = 420)
     elif t.find("G28") != -1:
         x, y, a, b = Gcode.G28()
         for motor in range (0,4):
@@ -188,6 +233,7 @@ def cli(x):
             s = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
             ser.write(s)
             sleep(0.001)
+        globX, globY, globA, globB = 0,0,0,0
         ser.write(x)
         sleep(0.001)
         ser.write(y)

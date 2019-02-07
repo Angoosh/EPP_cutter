@@ -355,20 +355,20 @@ def action(r):
             print("MST")
     elif r == "":
         print("No command specified")
-        temp = Gcode.M104(0)
+        nothing, temp = Gcode.M104(0)
         if os.path.exists("/home/pi") or os.path.exists("/home/rpi"):
             os.system("kill "+str(emerg_pid))
             GPIO.output(4, GPIO.LOW)
         ser.write(temp)
     elif r == "#":
         print("Finished")
-        temp = Gcode.M104(0)
+        nothing, temp = Gcode.M104(0)
         if os.path.exists("/home/pi") or os.path.exists("/home/rpi"):
             os.system("kill "+str(emerg_pid))
             GPIO.output(4, GPIO.LOW)
         ser.write(temp)
     else:
-        temp = Gcode.M104(0)
+        nothing, temp = Gcode.M104(0)
         if os.path.exists("/home/pi") or os.path.exists("/home/rpi"):
             os.system("kill "+str(emerg_pid))
             GPIO.output(4, GPIO.LOW)

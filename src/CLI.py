@@ -64,7 +64,7 @@ def gcoload(x):
                 print("Path: "+s+" does not exist\n")
 
 def STOP():
-    print("RESET!!")
+    print("STOP!")
     try:
         f = open("comm.pickle", "rb")
         pid = pickle.load(f)
@@ -128,7 +128,6 @@ def cli(x):
     global file
     
     if t.find("G0") != -1:
-        print("G0")
         x = t.find("X")
         y = t.find("Y")
         a = t.find("A")
@@ -153,7 +152,6 @@ def cli(x):
         sleep(0.001)
         ser.write(b)
     elif t.find("G1") != -1:
-        print("G1")
         x = t.find("X")
         y = t.find("Y")
         a = t.find("A")
@@ -178,7 +176,6 @@ def cli(x):
         sleep(0.001)
         ser.write(b)
     elif t.find("G28") != -1:
-        print("G28")
         x, y, a, b = Gcode.G28()
         for motor in range (0,4):
             b2,b3,b4,b5,b6,b7,b8 = i.SAP(193,motor,1)
@@ -202,10 +199,8 @@ def cli(x):
     elif t.find("G90") != -1:
         global mode
         mode = Gcode.G90()
-        print("G90")
     elif t.find("G91") != -1:               
         mode = Gcode.G91()
-        print("G91")
     elif t.find("M104") != -1:
         a = t.find("S")
         if a == -1:
@@ -213,7 +208,6 @@ def cli(x):
             return
         temp = int(t[a+1:])
         heat, send = Gcode.M104(temp)
-        print(heat)
         ser.write(send)
     elif t.find("RESET") != -1:
         RESET()
@@ -261,5 +255,8 @@ def cli(x):
 
 print(cli.__doc__)
 while True:
-    x = input("CLI: ")
-    cli(x)
+    try:
+        x = input("CLI: ")
+        cli(x)
+    except:
+        print("Only UTF-8")

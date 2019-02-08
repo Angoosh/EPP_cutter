@@ -44,7 +44,7 @@ except:
 #deklarace globalnich promennych
 proceed = 0
 mode = "ABS"
-feed = 1024 #2047 max
+feed = 2047 #2047 max
 lastx, lasty, lasta, lastb = 0, 0, 0, 0
 st = 0.0001 #delay mezi posilanim dat
 sth = 0.001 #delay pri homeni

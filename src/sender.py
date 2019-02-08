@@ -343,18 +343,36 @@ def action(r):
             sleep(st)
     elif r == "":
         nothing, temp = Gcode.M104(0)
+        for motor in range (0,4):
+            b2,b3,b4,b5,b6,b7,b8 = i.SAP(4, motor, 2047)
+            b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
+            byte = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
+            ser.write(byte)
+            sleep(0.001)
         if os.path.exists("/home/pi") or os.path.exists("/home/rpi"):
             os.system("kill "+str(emerg_pid))
             GPIO.output(4, GPIO.LOW)
         ser.write(temp)
     elif r == "#":
         nothing, temp = Gcode.M104(0)
+        for motor in range (0,4):
+            b2,b3,b4,b5,b6,b7,b8 = i.SAP(4, motor, 2047)
+            b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
+            byte = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
+            ser.write(byte)
+            sleep(0.001)
         if os.path.exists("/home/pi") or os.path.exists("/home/rpi"):
             os.system("kill "+str(emerg_pid))
             GPIO.output(4, GPIO.LOW)
         ser.write(temp)
     else:
         nothing, temp = Gcode.M104(0)
+        for motor in range (0,4):
+            b2,b3,b4,b5,b6,b7,b8 = i.SAP(4, motor, 2047)
+            b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
+            byte = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
+            ser.write(byte)
+            sleep(0.001)
         if os.path.exists("/home/pi") or os.path.exists("/home/rpi"):
             os.system("kill "+str(emerg_pid))
             GPIO.output(4, GPIO.LOW)

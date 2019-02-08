@@ -92,6 +92,9 @@ def action(r):
             yy = float(r[y+1:a-1])
             aa = float(r[a+1:b-1])
             bb = float(r[b+1:])
+            
+            yy = 420-yy
+            bb = 420-bb
         except:
             return
         x, y, a, b = Gcode.G0(xx, yy, aa, bb)
@@ -199,6 +202,9 @@ def action(r):
             yy = float(r[y+1:a-1])
             aa = float(r[a+1:b-1])
             bb = float(r[b+1:])
+                        
+            yy = 420-yy
+            bb = 420-bb
         except:
             return
         x, y, a, b = Gcode.G0(xx, yy, aa, bb)

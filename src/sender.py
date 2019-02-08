@@ -47,6 +47,7 @@ mode = "ABS"
 feed = 2047
 lastx, lasty, lasta, lastb = 0, 0, 0, 0
 st = 0.0001 #delay mezi posilanim dat
+sth = 0.001 #delay pri homeni
 
 #load emergency procesu
 sleep(1)
@@ -306,20 +307,21 @@ def action(r):
             b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
             x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
             ser.write(x)
+            sleep(sth)
             b2,b3,b4,b5,b6,b7,b8 = i.SAP(194,motor,2047)
             b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
             s = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
             ser.write(s)
-            sleep(st)
+            sleep(sth)
         x, y, a, b = Gcode.G28()
         ser.write(x)
-        sleep(st)
+        sleep(sth)
         ser.write(y)
-        sleep(st)
+        sleep(sth)
         ser.write(a)
-        sleep(st)
+        sleep(sth)
         ser.write(b)
-        sleep(st)
+        sleep(sth)
     elif r.find("G90") != -1:
         global mode
         mode = Gcode.G90()

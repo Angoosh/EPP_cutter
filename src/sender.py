@@ -55,7 +55,7 @@ sth = 0.001 #delay pri homeni
 sleep(1)
 f = open("emergency.pickle", "rb")
 emerg_pid = pickle.load(f)
-print("EMERGENCY PID = "+str(emerg_pid)
+print("EMERGENCY PID = "+str(emerg_pid))
 f.close()
 
 #funkce pro threading

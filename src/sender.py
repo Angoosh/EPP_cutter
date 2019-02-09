@@ -344,6 +344,12 @@ def action(r):
             return
         t = int(r[a+1:])
         Gcode.M600(t)
+    elif r.find("F") != -1:
+        a = int(r[1:])
+        if a <= 2047:
+            feedG1 = a
+        else:
+            print("Too much feedrate!")
     elif r.find("MST") != -1:
         for motor in range (0,4):
             b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,3, 0, motor, 0, 0, 0, 0)

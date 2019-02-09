@@ -28,6 +28,7 @@ sleep(1)
 #zapnuti EMERGENCY tlacitka
 if os.path.exists("/home/pi") or os.path.exists("/home/rpi"):
     subprocess.call("python3 EMERGENCY.py &", shell = True)
+    print("EMERGENCY active")
     import RPi.GPIO as GPIO
     GPIO.setwarnings(False)
     GPIO.setmode(GPIO.BCM)
@@ -44,7 +45,8 @@ except:
 #deklarace globalnich promennych
 proceed = 0
 mode = "ABS"
-feed = 2047 #2047 max
+feedG0 = 2047 #2047 max
+feedG1 = 2047 #2047 max
 lastx, lasty, lasta, lastb = 0, 0, 0, 0
 st = 0.0001 #delay mezi posilanim dat
 sth = 0.001 #delay pri homeni
@@ -80,7 +82,7 @@ def action(r):
     global st
     global proceed
     global lastx, lasty, lasta, lastb
-    global feed
+    global feedG0, feedG1
     if r.find("G0") != -1:
         x = r.find("X")
         y = r.find("Y")
@@ -116,10 +118,10 @@ def action(r):
             fa = mx
         if fb == 0:
             fb = mx
-        fx = int(feed/(mx/fx))
-        fy = int(feed/(mx/fy))
-        fa = int(feed/(mx/fa))
-        fb = int(feed/(mx/fb))
+        fx = int(feedG0/(mx/fx))
+        fy = int(feedG0/(mx/fy))
+        fa = int(feedG0/(mx/fa))
+        fb = int(feedG0/(mx/fb))
         
         b2,b3,b4,b5,b6,b7,b8 = i.SAP(4, 0, fx)
         b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
@@ -226,10 +228,10 @@ def action(r):
             fa = mx
         if fb == 0:
             fb = mx
-        fx = int(feed/(mx/fx))
-        fy = int(feed/(mx/fy))
-        fa = int(feed/(mx/fa))
-        fb = int(feed/(mx/fb))
+        fx = int(feedG1/(mx/fx))
+        fy = int(feedG1/(mx/fy))
+        fa = int(feedG1/(mx/fa))
+        fb = int(feedG1/(mx/fb))
         
         b2,b3,b4,b5,b6,b7,b8 = i.SAP(4, 0, fx)
         b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)

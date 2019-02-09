@@ -2,6 +2,7 @@ import instructions as i
 from byteparams import parameter as par
 import config
 import serial
+from time import sleep
 #from GUI.Widgets import __init__ as gui
 
 def connection(port):
@@ -79,3 +80,6 @@ def M104(temp):
     b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
     x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
     return(temp, x)
+
+def M600(t):
+    sleep(t)

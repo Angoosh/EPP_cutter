@@ -349,7 +349,8 @@ def action(r):
         if a == -1:
             return
         t = int(r[a+1:])
-        feedG1 = t
+        if t <= 2047:
+            feedG1 = t
         else:
             print("Too much feedrate!")
     elif r.find("MST") != -1:

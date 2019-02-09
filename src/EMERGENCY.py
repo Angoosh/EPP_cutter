@@ -9,12 +9,15 @@ print("EMERGENCY PID CALLBACK:  "+str(pid))
 f.close()
 
 self_pid = os.getpid()
+print("EM: Got PID")
 
 f = open("emergency.pickle", "wb")
 pickle.dump(self_pid, f)
 f.close()
+print("EM: Dumped PID")
 
 def EMERGENCY_STOP(x):
+    print("EM: Stopping sender")
     os.system("rm comm.pickle")
     os.system("kill "+str(pid))
     GPIO.output(4, GPIO.LOW)

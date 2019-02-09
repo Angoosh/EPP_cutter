@@ -345,9 +345,11 @@ def action(r):
         t = int(r[a+1:])
         Gcode.M600(t)
     elif r.find("F") != -1:
-        a = int(r[1:])
-        if a <= 2047:
-            feedG1 = a
+        a = r.find("F")
+        if a == -1:
+            return
+        t = int(r[a+1:])
+            feedG1 = t
         else:
             print("Too much feedrate!")
     elif r.find("MST") != -1:

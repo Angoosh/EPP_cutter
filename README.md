@@ -24,14 +24,14 @@ Connect your Emergency button to GPIO 14 and GND <br />
 Connect your Emergency button light to GPIO 4 and GND <br />
 <br />
 ## IP LED display:<br />
-b7 = GPIO-5     = 128
-b6 = GPIO-6     = 64
-b5 = GPIO-13    = 32
-b4 = GPIO-19    = 16
-b3 = GPIO-26    = 8
-b2 = GPIO-16    = 4
-b1 = GPIO-20    = 2
-b0 = GPIO-21    = 1
+b7 = GPIO-5     = 128<br />
+b6 = GPIO-6     = 64<br />
+b5 = GPIO-13    = 32<br />
+b4 = GPIO-19    = 16<br />
+b3 = GPIO-26    = 8<br />
+b2 = GPIO-16    = 4<br />
+b1 = GPIO-20    = 2<br />
+b0 = GPIO-21    = 1<br />
 <br />
 (all GPIOs are BCM named) <br />
 ```

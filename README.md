@@ -23,6 +23,16 @@ Connect your power button light to GPIO 2 and GND <br />
 Connect your Emergency button to GPIO 14 and GND <br />
 Connect your Emergency button light to GPIO 4 and GND <br />
 <br />
+## IP LED display:<br />
+b7 = GPIO-5     = 128
+b6 = GPIO-6     = 64
+b5 = GPIO-13    = 32
+b4 = GPIO-19    = 16
+b3 = GPIO-26    = 8
+b2 = GPIO-16    = 4
+b1 = GPIO-20    = 2
+b0 = GPIO-21    = 1
+<br />
 (all GPIOs are BCM named) <br />
 ```
 sudo usermod -a -G dialout USER_NAME

@@ -35,5 +35,6 @@ sudo update-rc.d powerbtn.sh defaults
 rm rpi_install.sh
 rm ubuntu_install.sh
 rm README.md
+rm -rf PCB
 sudo smbpasswd -a pi
 sudo reboot

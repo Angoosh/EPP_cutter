@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Jan 31 23:53:30 2019
+
+@author: angoosh
+"""
+
+import netifaces as ni
+
+INTERFACES = ni.interfaces()
+if "wlan0" in INTERFACES:
+    IFACE1 = "wlan0"
+    IFACE2 = "wlan0"
+if "wlp4s0" in INTERFACES:
+    IFACE1 = "wlp4s0"
+    IFACE2 = "wlp4s0"
+if "eth0" in INTERFACES:
+    IFACE1 = "eth0"
+if "enp0s25" in INTERFACES:
+    IFACE2 = "enp0s25"
+else:
+    print("No interface found")
+
+try:
+    ip = ni.ifaddresses(IFACE1)[ni.AF_INET][0]["addr"]
+    IP = ip.split(".")
+    IP = int(IP[3])
+    IFACE = IFACE1
+except:
+    try:
+        ip = ni.ifaddresses(IFACE2)[ni.AF_INET][0]["addr"]
+        IP = ip.split(".")
+        IP = int(IP[3])
+        IFACE = IFACE2
+    except:
+        ip = "0.0.0.0"
+        print("No IP assigned or unknown iface")
+        
+address = [0,0,0,0,0,0,0,0]
+
+if IP >= 128:
+    address[0] = 1
+    IP = IP%128
+if IP >= 64:
+    address[1] = 1
+    IP = IP%64
+if IP >= 32:
+    address[2] = 1
+    IP = IP%32
+if IP >= 16:
+    address[3] = 1
+    IP = IP%16
+if IP >= 8:
+    address[4] = 1
+    IP = IP%8
+if IP >= 4:
+    address[5] = 1
+    IP = IP%4
+if IP >= 2:
+    address[6] = 1
+address[7] = IP%2

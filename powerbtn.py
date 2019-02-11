@@ -1,7 +1,6 @@
 import threading, subprocess
 import RPi.GPIO as GPIO
 from time import sleep
-import os
 
 def shutdown():
         subprocess.call("sudo shutdown now", shell=True)
@@ -12,8 +11,6 @@ def edge_detected(pin):
                 subprocess.call("sudo reboot", shell=True)
         else:
                 t.start()
-
-os.system("python3 IP.py &")
                 
 if __name__ == "__main__":
         try:

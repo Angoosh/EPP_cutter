@@ -7,10 +7,10 @@ Created on Thu Jan 31 23:53:30 2019
 """
 
 import netifaces as ni
-from RPi.GPIO import GPIO
+import RPi.GPIO as GPIO
 from time import sleep
 
-GPIO.setmode(BCM)
+GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 GPIO.setup(5, GPIO.OUT)
 GPIO.setup(6, GPIO.OUT)

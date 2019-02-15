@@ -21,7 +21,7 @@ GPIO.setup(16, GPIO.OUT)
 GPIO.setup(20, GPIO.OUT)
 GPIO.setup(21, GPIO.OUT)
 
-if __name__ == "__main__":
+while True:
     try:
         INTERFACES = ni.interfaces()
         if "wlan0" in INTERFACES:
@@ -85,7 +85,7 @@ if __name__ == "__main__":
         GPIO.output(20, address[6])
         GPIO.output(21, address[7])
         sleep(1)
-    finally:
+    Except:
         GPIO.cleanup()
         sleep(0.2)
     

@@ -6,7 +6,7 @@ Created on Thu Jan 31 23:53:30 2019
 @author: angoosh
 """
 
-import netifaces as ni
+import subprocess
 import RPi.GPIO as GPIO
 from time import sleep
 
@@ -21,34 +21,20 @@ GPIO.setup(16, GPIO.OUT)
 GPIO.setup(20, GPIO.OUT)
 GPIO.setup(21, GPIO.OUT)
 
+ip_cmd = "hostname -I"
+
+def run(cmd):
+    return subprocess.check_output(cmd, shell=True).decode('utf-8')
+
 while True:
     try:
-        INTERFACES = ni.interfaces()
-        if "wlan0" in INTERFACES:
-            IFACE1 = "wlan0"
-            IFACE2 = "wlan0"
-        if "wlp4s0" in INTERFACES:
-            IFACE1 = "wlp4s0"
-            IFACE2 = "wlp4s0"
-        if "eth0" in INTERFACES:
-            IFACE1 = "eth0"
-        if "enp0s25" in INTERFACES:
-            IFACE2 = "enp0s25"
-
         try:
-            ip = ni.ifaddresses(IFACE1)[ni.AF_INET][0]["addr"]
+            ip = run(ip_cmd)
             IP = ip.split(".")
             IP = int(IP[3])
-            IFACE = IFACE1
         except:
-            try:
-                ip = ni.ifaddresses(IFACE2)[ni.AF_INET][0]["addr"]
-                IP = ip.split(".")
-                IP = int(IP[3])
-                IFACE = IFACE2
-            except:
-                ip = "0.0.0.0"
-                print("No IP assigned or unknown iface")
+            ip = "0.0.0.0"
+            print("No IP assigned or unknown iface")
         
         address = [0,0,0,0,0,0,0,0]
 

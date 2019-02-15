@@ -34,8 +34,6 @@ while True:
             IFACE1 = "eth0"
         if "enp0s25" in INTERFACES:
             IFACE2 = "enp0s25"
-        else:
-            print("No interface found")
 
         try:
             ip = ni.ifaddresses(IFACE1)[ni.AF_INET][0]["addr"]

@@ -85,7 +85,7 @@ while True:
         GPIO.output(20, address[6])
         GPIO.output(21, address[7])
         sleep(1)
-    Except:
+    except:
         GPIO.cleanup()
         sleep(0.2)
     

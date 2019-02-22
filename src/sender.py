@@ -22,6 +22,7 @@ f.close()
 pid = os.getpid()
 f = open("comm.pickle", "wb")
 pickle.dump(pid, f)
+pickle.dump(serPort, f)
 f.close()
 sleep(1)
 

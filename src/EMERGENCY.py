@@ -2,9 +2,12 @@ import RPi.GPIO as GPIO
 import os
 from time import sleep
 import pickle
+import serial
+import Gcode
 
 f = open("comm.pickle", "rb")
 pid = pickle.load(f)
+serPort = pickle.load(f)
 print("EMERGENCY PID CALLBACK:  "+str(pid))
 f.close()
 
@@ -20,6 +23,11 @@ def EMERGENCY_STOP(x):
     print("EM: Stopping sender")
     os.system("rm comm.pickle")
     os.system("kill "+str(pid))
+    ser = Gcode.connection(serPort)
+    heat, send = Gcode.M104(0)
+    ser.write(send)
+    sleep(0.001)
+    ser.close()
     GPIO.output(4, GPIO.LOW)
     exit()
 

@@ -3,8 +3,8 @@ from byteparams import parameter as par
 import config
 import serial
 from time import sleep
-#from GUI.Widgets import __init__ as gui
 
+#funkce pripojeni k portu
 def connection(port):
     try:
         ser = serial.Serial(port)
@@ -19,7 +19,7 @@ def connection(port):
 
 mode = config.glob()[0]
 
-
+# funkce gcodu G0
 def G0(X, Y, A, B):
     b2,b3,b4,b5,b6,b7,b8 = i.MVP(mode,0,X)
     b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
@@ -35,6 +35,7 @@ def G0(X, Y, A, B):
     b = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
     return(x, y, a, b)
     
+# funkce gcodu G1
 def G1(X, Y, A, B):
     b2,b3,b4,b5,b6,b7,b8 = i.MVP(mode,0,X)
     b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
@@ -49,7 +50,8 @@ def G1(X, Y, A, B):
     b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,b2,b3,b4,b5,b6,b7,b8)
     b = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
     return(x, y, a, b)
-    
+
+# funkce gcodu G28
 def G28():
     b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,13,0,0,0,0,0,0)
     x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
@@ -60,17 +62,20 @@ def G28():
     b1,b2,b3,b4,b5,b6,b7,b8,b9=par(1,13,0,3,0,0,0,0)
     b = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
     return(x, y, a, b)
-    
+
+# funkce gcodu G90
 def G90():
     global mode
     mode = "ABS"
     return(mode)
-    
+
+# funkce gcodu G91
 def G91():
     global mode
     mode = "REL"
     return(mode)
-        
+
+# funkce mcodu M104
 def M104(temp):
     if temp != 0:
         s = True
@@ -81,5 +86,6 @@ def M104(temp):
     x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
     return(temp, x)
 
+# funkce mcodu M600
 def M600(t):
     sleep(t)

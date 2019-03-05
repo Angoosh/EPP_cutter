@@ -10,6 +10,7 @@ import subprocess
 import RPi.GPIO as GPIO
 from time import sleep
 
+#nastaveni GPIO
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 GPIO.setup(5, GPIO.OUT)
@@ -22,7 +23,7 @@ GPIO.setup(20, GPIO.OUT)
 GPIO.setup(21, GPIO.OUT)
 
 ip_cmd = "hostname -I"
-
+#funkce ziskani ip adresy
 def run(cmd):
     return subprocess.check_output(cmd, shell=True).decode('utf-8')
 
@@ -37,7 +38,8 @@ while True:
             print("No IP assigned or unknown iface")
         
         address = [0,0,0,0,0,0,0,0]
-
+        
+#predelani posledniho cisla IPv4 do binarniho formatu
         if IP >= 128:
             address[0] = 1
             IP = IP%128
@@ -59,7 +61,7 @@ while True:
         if IP >= 2:
             address[6] = 1
         address[7] = IP%2
-
+#vykresleni IP adresy
         GPIO.output(5, address[0])
         GPIO.output(6, address[1])
         GPIO.output(13, address[2])

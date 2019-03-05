@@ -49,5 +49,5 @@ if __name__ == "__main__":
             sleep(0.2)
             pass
     finally:
-        GPIO.cleanup()
+        GPIO.cleanup() #vypnuti vsech GPIO a jejich vymazani z pouzivanych pinu
         sleep(0.2)

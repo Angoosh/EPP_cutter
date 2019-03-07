@@ -121,8 +121,8 @@ def cli(x):
         stop - immediate stop of cutting, no arguments
         exit - to exit application, note that sender will continue sending gcode to the cutter
         G0, G1, G28, G90, G91, M104, MST - as genetral cutter commands, arguments:
-            G0 X Y Z A
-            G1 X Y Z A
+            G0 X Y A B
+            G1 X Y A B
             G28
             G90
             G91

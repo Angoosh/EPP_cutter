@@ -1,5 +1,6 @@
 import math
 
+#vypocet checksum
 def parameter(b1, b2, b3, b4, b5, b6, b7, b8):
     CHECKSUM = b1+b2+b3+b4+b5+b6+b7+b8
     b9 = CHECKSUM

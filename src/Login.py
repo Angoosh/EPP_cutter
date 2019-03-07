@@ -4,14 +4,17 @@ import base64
 import pickle
 import getpass
 
+#otevreni souboru se jmenem a heslem
 creds = open("creds.pickle", "rb")
 user = pickle.load(creds)
 passwd = pickle.load(creds)
 creds.close()
 
+#zadani uzivatelskeho jmena a jeho zasifrovani
 i = input("Username: ")
 u = base64.b64encode(i.encode('utf-8'))
 
+#zadani hesla a porovnavani jmena a hesla s daty ze souboru a vytvoreni docasneho souboru s informacemi pro CLI/GUI
 x = 0
 for x in range (0,3):
     i = getpass.getpass()

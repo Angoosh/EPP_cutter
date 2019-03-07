@@ -3,14 +3,14 @@
 Must run on python 3 
 """
 
-import serial
-from byteparams import parameter as par
-import instructions as i
-import Gcode
-import pickle
-from time import sleep
-import os
-import subprocess
+import serial                               #import balicku seriove komunikace
+from byteparams import parameter as par     #import balicku na vypocet checksum
+import instructions as i                    #import balicku instrukcni sady rezacky
+import Gcode                                #import balicku pro zpracovani gcode
+import pickle                               #import balicku pro praci s pickle soubory
+from time import sleep                      #import funkce sleep z balicku time pro cekani
+import os                                   #import balicku operacniho systemu
+import subprocess                           #import baliicku pro volani sytemovych prikazu
 
 #cteni konfiguracniho souboru
 f = open("comm.pickle", "rb")
@@ -43,12 +43,13 @@ try:
 except:
     print("No such serial port as: " + serPort)
     os.system("kill "+str(pid))
+    
 #deklarace globalnich promennych
-proceed = 0
-mode = "ABS"
+proceed = 0 #bezucelna promenna z brzkych stádii vyvoje
+mode = "ABS" #ABS nebo REL
 feedG0 = 2047 #2047 max
 feedG1 = 2047 #2047 max
-lastx, lasty, lasta, lastb = 0, 0, 0, 0
+lastx, lasty, lasta, lastb = 0, 0, 0, 0 #posledni pozice os
 st = 0.0001 #delay mezi posilanim dat
 sth = 0.001 #delay pri homeni
 
@@ -80,11 +81,13 @@ def wait_until_reached():
 #rozlysovani jednotlivych prikazu gcodu
 def action(r):
     r = r.decode("utf-8")
+    #import globalnich promennych do funkce
     global mode
     global st
     global proceed
     global lastx, lasty, lasta, lastb
     global feedG0, feedG1
+    #zpracovani prikazu G0 pro pohyb
     if r.find("G0") != -1:
         x = r.find("X")
         y = r.find("Y")
@@ -195,6 +198,7 @@ def action(r):
             ser.write(x)
             print("OK4")
             pass
+    #zpracovani prikazu G1 pro pohyb
     elif r.find("G1") != -1:
         x = r.find("X")
         y = r.find("Y")
@@ -305,6 +309,7 @@ def action(r):
             ser.write(x)
             print("OK4")
             pass
+    #zpracovani prikazu G28 pro homeni
     elif r.find("G28") != -1:
         for motor in range (0,4):
             b2,b3,b4,b5,b6,b7,b8 = i.SAP(193,motor,1)
@@ -326,11 +331,14 @@ def action(r):
         sleep(sth)
         ser.write(b)
         sleep(sth)
+    #zpracovani prikazu G90 pro zmenu modu na ABS
     elif r.find("G90") != -1:
         global mode
         mode = Gcode.G90()
+    #zpracovani prikazu G91 pro zmenu modu na REL 
     elif r.find("G91") != -1:
         mode = Gcode.G91()
+    #zpracovani prikazu M104 pro nahrivani
     elif r.find("M104") != -1:
         a = r.find("S")
         if a == -1:
@@ -339,12 +347,14 @@ def action(r):
         heat, send = Gcode.M104(temp)
         ser.write(send)
         sleep(st)
+    #zpracovani prikazu M600 pro cekani
     elif r.find("M600") != -1:
         a = r.find("S")
         if a == -1:
             return
         t = int(r[a+1:])
         Gcode.M600(t)
+    #zpracovani prikazu F, pro feedrate
     elif r.find("F") != -1:
         a = r.find("F")
         if a == -1:
@@ -354,12 +364,14 @@ def action(r):
             feedG1 = t
         else:
             print("Too much feedrate!")
+    #zpracovani prikazu MST pro okamzite zastaveni motoru (nepouzivane)
     elif r.find("MST") != -1:
         for motor in range (0,4):
             b1,b2,b3,b4,b5,b6,b7,b8,b9 = par(1,3, 0, motor, 0, 0, 0, 0)
             x = bytearray([b1,b2,b3,b4,b5,b6,b7,b8,b9])
             ser.write(x)
             sleep(st)
+    #reseni prazdnych radku a radku s "#"
     elif r == "":
         nothing, temp = Gcode.M104(0)
         for motor in range (0,4):
@@ -397,13 +409,13 @@ def action(r):
             GPIO.output(4, GPIO.LOW)
         ser.write(temp)
 
-
+#nacteni souboru gcodu a postupne jeho cteni radek po radku a reseni jednotlivych cekacich procedur
 with open(file, "rb") as t:
     for line in t:
         print(line)
         a = line.decode("utf-8")
         if (a.find("G0") != -1) or (a.find("G1") != -1):
-            action(line)
+            action(line) #provedeni prislusnych vypocetnich procedur
             while True:
                 r = ser.read(9)
                 if r == b'\x02\x01\x80\x8a\x00\x00\x00\x01\x0e':
@@ -415,7 +427,7 @@ with open(file, "rb") as t:
                 if r == b'\x02\x01\x80\x8a\x00\x00\x00\x08\x15':
                     break
         elif a.find("G28") != -1:
-            action(line)
+            action(line) #provedeni prislusnych vypocetnich procedur
             Xh = 0
             Yh = 0
             Ah = 0

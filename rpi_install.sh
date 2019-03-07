@@ -9,7 +9,7 @@ sudo apt-get install -y libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-
    xclip xsel samba
 sudo apt install -y python3-pip
 sudo pip3 install -U Cython==0.28.2
-sudo pip3 install netifaces
+sudo pip3 install netifaces pyserial
 git clone https://github.com/kivy/kivy
 cd kivy
 python3 setup.py build

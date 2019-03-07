@@ -37,15 +37,18 @@ globB = 0
 serPort = "/dev/ttyACM0"
 file = ""
 
+#otevreni senderu
 def openSender():
     os.system("python3 "+sender)
 
+#ulozeni portu a gcodu do souboru
 def sendComm():
     f = open("comm.pickle", "wb")
     pickle.dump(serPort, f)
     pickle.dump(file, f)
     f.close()
-    
+
+#trida chyb (pro vyreseni erroru)
 class Exceptions():
     def write(self, ser):
         print("No Connection")
@@ -53,6 +56,7 @@ class Exceptions():
         print("No connection")
 ser = Exceptions()
 
+#funkce nacteni gcodu
 def gcoload(x):
             global file
             s = x
@@ -74,6 +78,7 @@ def gcoload(x):
             except:
                 print("Path: "+s+" does not exist\n")
 
+#funkce stop prikazu
 def STOP():
     print("STOP!")
     try:
@@ -99,6 +104,7 @@ def STOP():
     send = Gcode.M104(0)[1]
     ser.write(send)   
 
+#funkce reset prikazu
 def RESET():
     global globX, globY, globA, globB
     globX, globY, globA, globB = 0,0,0,0
@@ -141,6 +147,7 @@ def cli(x):
     global file
     global globX, globY, globA, globB
     
+    #obsluha vlozenych prikazu
     if t.find("G0") != -1:
         x = t.find("X")
         y = t.find("Y")
@@ -280,8 +287,10 @@ def cli(x):
         ser.write(send)
     elif t.find("RESET") != -1:
         RESET()
+    #zadani serioveho portu
     elif t.find("port") != -1:
         serPort = t[5:]
+    #pripojeni k portu
     elif t.find("connect") != -1:
         try:
             ser = Gcode.connection(serPort)
@@ -295,12 +304,15 @@ def cli(x):
                 sleep(0.001)
         except: 
             ""
+    #odpojeni od portu
     elif t.find("disconnect") != -1:
         ser.close()
         ser = Exceptions()
+    #zadani cesty k gcode souboru
     elif t.find("gcode") != -1:
         y = t[6:]
         gcoload(y)
+    #spusteni rezani
     elif t.find("cut") != -1:
         if file != "":
             sendComm()
@@ -309,25 +321,30 @@ def cli(x):
             openSender()
         else:
             print("no file for cutting selected")
+    #zastaveni
     elif t.find("stop") != -1:
         STOP()
+    #vypnuti CLI
     elif t.find("exit") != -1:
         pid = os.getpid()
         subprocess.call("kill "+str(pid), shell = True)
+    #zadani shell prikazu
     elif t.find("command") != -1:
         if len(t) > 8:
             x = t[8:]
             subprocess.call(x, shell = True)
         else:
             subprocess.call(input("command: "), shell = True)
+    #vypsani help
     elif t.find("help") != -1:
         print(cli.__doc__)
+    #osetreni nezadaneho nebo spatne zadaneho prikazu
     elif t == "":
         print("No command given\n")
     else:
         print("Unknown command: " + t)
 
-
+#spusteni CLI
 print(cli.__doc__)
 while True:
     x = input("CLI: ")

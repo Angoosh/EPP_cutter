@@ -2,16 +2,19 @@ import threading, subprocess
 import RPi.GPIO as GPIO
 from time import sleep
 
+#funkce vypnuti
 def shutdown():
         subprocess.call("sudo shutdown now", shell=True)
 
+#funkce rozetnani zmeny stavu vstupu
 def edge_detected(pin):
         if GPIO.input(pin):
                 t.cancel()
                 subprocess.call("sudo reboot", shell=True)
         else:
                 t.start()
-                
+ 
+#loop
 if __name__ == "__main__":
         try:
                 GPIO.setmode(GPIO.BCM)

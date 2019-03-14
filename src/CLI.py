@@ -273,7 +273,6 @@ def cli(x):
         ser.write(b)
         sleep(0.001)
     elif t.find("G90") != -1:
-        global mode
         mode = Gcode.G90()
     elif t.find("G91") != -1:               
         mode = Gcode.G91()

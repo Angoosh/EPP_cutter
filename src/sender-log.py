@@ -487,7 +487,7 @@ with open(file, "rb") as t:
         print(line)
         log.write("\n")
         a = line.decode("utf-8")
-        log.write(str(a[0:3])+"\n")
+        log.write(str(a[0:4])+"\n")
         if (a.find("G0") != -1) or (a.find("G1") != -1):
             action(line) #provedeni prislusnych vypocetnich procedur
             while True:

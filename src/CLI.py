@@ -345,6 +345,7 @@ def cli(x):
 
 #spusteni CLI
 print(cli.__doc__)
+print("Sender: "+str(sender)+"\n")
 while True:
     x = input("CLI: ")
     cli(x)

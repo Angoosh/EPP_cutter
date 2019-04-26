@@ -13,7 +13,7 @@ import os                                   #import balicku operacniho systemu
 import subprocess                           #import baliicku pro volani sytemovych prikazu
 
 #zacatek logovani
-log = open("logs/log.txt", "w")
+log = open("logs/log.txt", "a")
 log.write(strftime("%d-%m-%Y %H:%M:%S", gmtime()))
 log.write("\n")
 #cteni konfiguracniho souboru

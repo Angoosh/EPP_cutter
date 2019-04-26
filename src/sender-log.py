@@ -328,8 +328,7 @@ def action(r):
             log.write("OK1\n")
             pass
         elif ny == mx:
-#            ser.write(bytearray([1,138,0,0,0,0,0,2,141]))
-            ser.write(bytearray([1,138,0,0,0,0,0,1,140]))
+            ser.write(bytearray([1,138,0,0,0,0,0,2,141]))
             sleep(st)
             ser.write(y)
             sleep(st)
@@ -342,8 +341,7 @@ def action(r):
             log.write("OK2\n")
             pass
         elif na == mx:
-#            ser.write(bytearray([1,138,0,0,0,0,0,4,143]))
-            ser.write(bytearray([1,138,0,0,0,0,0,1,140]))
+            ser.write(bytearray([1,138,0,0,0,0,0,4,143]))
             sleep(st)
             ser.write(a)
             sleep(st)
@@ -356,8 +354,7 @@ def action(r):
             log.write("OK3\n")
             pass
         else:
-#            ser.write(bytearray([1,138,0,0,0,0,0,8,147]))
-            ser.write(bytearray([1,138,0,0,0,0,0,1,140]))
+            ser.write(bytearray([1,138,0,0,0,0,0,8,147]))
             sleep(st)
             ser.write(b)
             sleep(st)
@@ -498,7 +495,6 @@ with open(file, "rb") as t:
                 r = ser.read(9)
                 if r == b'\x02\x01\x80\x8a\x00\x00\x00\x01\x0e':
                     log.write("Got first read\n")
-                    sleep(1)
                     break
                     
                 if r == b'\x02\x01\x80\x8a\x00\x00\x00\x02\x0f':

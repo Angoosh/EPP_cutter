@@ -8,13 +8,14 @@ from byteparams import parameter as par     #import balicku na vypocet checksum
 import instructions as i                    #import balicku instrukcni sady rezacky
 import Gcode                                #import balicku pro zpracovani gcode
 import pickle                               #import balicku pro praci s pickle soubory
-from time import sleep                      #import funkce sleep z balicku time pro cekani
+from time import sleep, gmtime, strftime    #import funkce sleep z balicku time pro cekani
 import os                                   #import balicku operacniho systemu
 import subprocess                           #import baliicku pro volani sytemovych prikazu
 
 #zacatek logovani
 log = open("logs/log.txt", "w")
-
+log.write(strftime("%d-%m-%Y %H:%M:%S", gmtime()))
+log.write("\n")
 #cteni konfiguracniho souboru
 f = open("comm.pickle", "rb")
 serPort = pickle.load(f)
@@ -327,7 +328,8 @@ def action(r):
             log.write("OK1\n")
             pass
         elif ny == mx:
-            ser.write(bytearray([1,138,0,0,0,0,0,2,141]))
+#            ser.write(bytearray([1,138,0,0,0,0,0,2,141]))
+            ser.write(bytearray([1,138,0,0,0,0,0,1,140]))
             sleep(st)
             ser.write(y)
             sleep(st)
@@ -340,7 +342,8 @@ def action(r):
             log.write("OK2\n")
             pass
         elif na == mx:
-            ser.write(bytearray([1,138,0,0,0,0,0,4,143]))
+#            ser.write(bytearray([1,138,0,0,0,0,0,4,143]))
+            ser.write(bytearray([1,138,0,0,0,0,0,1,140]))
             sleep(st)
             ser.write(a)
             sleep(st)
@@ -353,7 +356,8 @@ def action(r):
             log.write("OK3\n")
             pass
         else:
-            ser.write(bytearray([1,138,0,0,0,0,0,8,147]))
+#            ser.write(bytearray([1,138,0,0,0,0,0,8,147]))
+            ser.write(bytearray([1,138,0,0,0,0,0,1,140]))
             sleep(st)
             ser.write(b)
             sleep(st)
@@ -493,17 +497,22 @@ with open(file, "rb") as t:
             while True:
                 r = ser.read(9)
                 if r == b'\x02\x01\x80\x8a\x00\x00\x00\x01\x0e':
-                    break
                     log.write("Got first read\n")
+                    sleep(0.5)
+                    break
+                    
                 if r == b'\x02\x01\x80\x8a\x00\x00\x00\x02\x0f':
-                    break
                     log.write("Got second read\n")
+                    break
+                    
                 if r == b'\x02\x01\x80\x8a\x00\x00\x00\x04\x11':
-                    break
                     log.write("Got third read\n")
-                if r == b'\x02\x01\x80\x8a\x00\x00\x00\x08\x15':
                     break
+                    
+                if r == b'\x02\x01\x80\x8a\x00\x00\x00\x08\x15':
                     log.write("Got fourth read\n")
+                    break
+                    
         elif a.find("G28") != -1:
             action(line) #provedeni prislusnych vypocetnich procedur
             Xh = 0

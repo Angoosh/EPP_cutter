@@ -498,7 +498,7 @@ with open(file, "rb") as t:
                 r = ser.read(9)
                 if r == b'\x02\x01\x80\x8a\x00\x00\x00\x01\x0e':
                     log.write("Got first read\n")
-                    sleep(0.5)
+                    sleep(1)
                     break
                     
                 if r == b'\x02\x01\x80\x8a\x00\x00\x00\x02\x0f':

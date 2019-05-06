@@ -120,6 +120,7 @@ def cli(x):
     Instructions are:
         help - shows help
         port - takes one argument, for connecting to selected port
+        listports - lists all available ports, no arguments
         connect - connect to port on which cutter is, no arguments
         disconnect - to disconnect from cutter, no arguments
         gcode - takes one argument, gcode which will be printing from
@@ -334,6 +335,10 @@ def cli(x):
             subprocess.call(x, shell = True)
         else:
             subprocess.call(input("command: "), shell = True)
+    elif t.find("listports") != -1:
+        PortString = subprocess.check_output("ls /dev/tty*", shell=True).decode('utf-8')
+        PortsAvailable = re.findall(r"ttyUSB[\w\.-]+|ttyACM[\w\.-]+", PortString)
+        print(PortsAvailable)
     #vypsani help
     elif t.find("help") != -1:
         print(cli.__doc__)

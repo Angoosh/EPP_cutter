@@ -10,10 +10,17 @@ sudo apt-get install -y libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-
 sudo apt install -y python3-pip
 sudo pip3 install -U Cython==0.28.2
 sudo pip3 install netifaces pyserial
-git clone https://github.com/kivy/kivy
-cd kivy
-python3 setup.py build
-sudo python3 setup.py install
+
+read -p "Do you want GUI? Y/n" -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+   git clone https://github.com/kivy/kivy
+   cd kivy
+   python3 setup.py build
+   sudo python3 setup.py install
+fi
+
 cd ~/cutter/src
 mkdir gcodes
 sudo echo "[gcodes]" >> /etc/samba/smb.conf

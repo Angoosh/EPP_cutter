@@ -10,8 +10,10 @@ def glob():
     motorsteps = 200        #steps per rotation of used motor
     microstepping = 128     #supplied microstepping - 1-256
     screwpitch = 4          #screw pitch in mm
+    logtime = 7             #days after log files will be removed
+    logpath = "logs/"       #path to log files
     
-    return mode, travel, negtravel, motorsteps, microstepping, screwpitch, sender
+    return mode, travel, negtravel, motorsteps, microstepping, screwpitch, sender, logtime, logpath
 
 #nastaveni microsteppingu, je potreba odkomentovat func() aby bylo mozne aplikovat zmeny
 def func():

@@ -11,10 +11,12 @@ import pickle                               #import balicku pro praci s pickle s
 from time import sleep, gmtime, strftime    #import funkce sleep z balicku time pro cekani
 import os                                   #import balicku operacniho systemu
 import subprocess                           #import baliicku pro volani sytemovych prikazu
+import config
 
 #zacatek logovani
-LOGFILE = "logs/log "+strftime("%H-%M_%d-%m", gmtime())+".txt"
-subprocess.call("mkdir logs", shell=True)
+LOGPATH = config.glob()[8]
+LOGFILE = LOGPATH+"log_"+strftime("%H-%M_%d-%m", gmtime())+".txt"
+subprocess.call("mkdir "+LOGPATH, shell=True)
 log = open(LOGFILE, "a")
 log.write(strftime("%d-%m-%Y %H:%M:%S", gmtime()))
 log.write("\n")

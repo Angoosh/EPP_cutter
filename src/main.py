@@ -10,6 +10,11 @@ import config
 PATH = "logs/"
 DAYS = config.glob()[7]
 
+try:
+    os.listdir(PATH)
+except:
+    os.system("mkdir "+PATH)
+
 for i in range (0,3):
     
     #kontrola modulu

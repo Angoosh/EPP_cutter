@@ -1,16 +1,8 @@
 #!/bin/bash
 
-read -p "Do you want GUI? Y/n" -n 1 -r
-echo
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-   sudo add-apt-repository ppa:kivy-team/kivy -y
-   sudo apt update
-   sudo apt install python-kivy python3-kivy
-else
-   sudo apt update
-fi
-
+sudo add-apt-repository ppa:kivy-team/kivy -y
+sudo apt update
+sudo apt install python-kivy python3-kivy
 sudo apt upgrade
 sudo apt-get install python3-pip -y
 pip3 install pyserial

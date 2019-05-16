@@ -1,6 +1,7 @@
 #!/bin/bash
 
 sudo apt update
+sudo apt upgrade
 sudo apt-get install -y libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev \
    pkg-config libgl1-mesa-dev libgles2-mesa-dev \
    python-setuptools libgstreamer1.0-dev git-core \

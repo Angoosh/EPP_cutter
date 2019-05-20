@@ -1,5 +1,6 @@
 # EPP_cutter
-Final exam project <\n>
+Final exam project
+
 Contains controlling app and gcode sender.
 CAM is here: https://bitbucket.org/Zbynek_Dostal/cam-for-hot-wire 
 

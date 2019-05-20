@@ -1,6 +1,7 @@
 #!/bin/bash
 
 sudo apt update
+sudo apt upgrade
 sudo apt-get install -y libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev \
    pkg-config libgl1-mesa-dev libgles2-mesa-dev \
    python-setuptools libgstreamer1.0-dev git-core \
@@ -11,25 +12,28 @@ sudo apt install -y python3-pip
 sudo pip3 install -U Cython==0.28.2
 sudo pip3 install netifaces pyserial
 
-read -p "Do you want GUI? Y/n" -n 1 -r
-echo
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-   git clone https://github.com/kivy/kivy
-   cd kivy
-   python3 setup.py build
-   sudo python3 setup.py install
-fi
+git clone https://github.com/kivy/kivy
+cd kivy
+python3 setup.py build
+sudo python3 setup.py install
 
 cd ~/
 git clone https://github.com/Angoosh/EPP_cutter cutter
 cd ~/cutter/src
 mkdir gcodes
+mkdir logs
 sudo echo "[gcodes]" >> /etc/samba/smb.conf
 sudo echo "   comment = Gcode folder for cutter" >> /etc/samba/smb.conf
 sudo echo "   path = /home/pi/cutter/src/gcodes" >> /etc/samba/smb.conf
 sudo echo "   browsable = yes" >> /etc/samba/smb.conf
 sudo echo "   read only = no" >> /etc/samba/smb.conf
+
+sudo echo "[logs]" >> /etc/samba/smb.conf
+sudo echo "   comment = Logs folder for cutter" >> /etc/samba/smb.conf
+sudo echo "   path = /home/pi/cutter/src/logs" >> /etc/samba/smb.conf
+sudo echo "   browsable = yes" >> /etc/samba/smb.conf
+sudo echo "   read only = yes" >> /etc/samba/smb.conf
+
 sudo service smbd restart
 chmod +x main.py
 cd ~/

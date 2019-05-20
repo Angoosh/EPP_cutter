@@ -21,7 +21,7 @@ Connect your power button light to GPIO 2 and GND <br />
 Connect your Emergency button to GPIO 14 and GND <br />
 Connect your Emergency button light to GPIO 4 and GND <br />
 <br />
-__IP LED display:__ <br />
+**IP LED display:** <br />
 b7 = GPIO-5     = 128<br />
 b6 = GPIO-6     = 64<br />
 b5 = GPIO-13    = 32<br />

@@ -39,7 +39,7 @@ for i in range (0,3):
     try:
         os.environ['DISPLAY']
         import kivy
-        subprocess.call(["python3 CLI.py"], shell = True)
+        subprocess.call(["python3 GUI.py"], shell = True)
     except:
         subprocess.call(["clear"], shell = True)
         subprocess.call(["python3 CLI.py"], shell = True)

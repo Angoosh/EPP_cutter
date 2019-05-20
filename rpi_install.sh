@@ -21,6 +21,8 @@ then
    sudo python3 setup.py install
 fi
 
+cd ~/
+git clone https://github.com/Angoosh/EPP_cutter cutter
 cd ~/cutter/src
 mkdir gcodes
 sudo echo "[gcodes]" >> /etc/samba/smb.conf

@@ -13,8 +13,8 @@ sudo sh install.sh
 ## Supported distros:<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ubuntu 16.04 and up<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Raspbian Stretch and up <br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Arch Linux
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Arch Linux <br />
+<br />
 Connect your power button to GPIO 3 and GND <br />
 Connect your power button light to GPIO 2 and GND <br />
 Connect your Emergency button to GPIO 14 and GND <br />

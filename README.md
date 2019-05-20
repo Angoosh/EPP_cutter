@@ -11,6 +11,7 @@ sudo sh install.sh
 ```
 <br />
 ## Supported distros:<br />
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ubuntu 16.04 and up<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Raspbian Stretch and up <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Arch Linux <br />

@@ -10,7 +10,7 @@ cd ~/cutter
 sudo sh install.sh
 ```
 <br />
-### Supported distros:<br />
+__Supported distros:__<br />
 <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ubuntu 16.04 and up<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Raspbian Stretch and up <br />
@@ -21,7 +21,7 @@ Connect your power button light to GPIO 2 and GND <br />
 Connect your Emergency button to GPIO 14 and GND <br />
 Connect your Emergency button light to GPIO 4 and GND <br />
 <br />
-## IP LED display:<br />
+__IP LED display:__<br />
 b7 = GPIO-5     = 128<br />
 b6 = GPIO-6     = 64<br />
 b5 = GPIO-13    = 32<br />

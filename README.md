@@ -11,9 +11,9 @@ sudo sh install.sh
 ```
 <br />
 ## Supported distros:<br />
-	* Ubuntu 16.04 and up<br />
-	* Raspbian Stretch and up <br />
-	* Arch Linux
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ubuntu 16.04 and up<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Raspbian Stretch and up <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Arch Linux
 
 Connect your power button to GPIO 3 and GND <br />
 Connect your power button light to GPIO 2 and GND <br />

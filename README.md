@@ -9,9 +9,9 @@ git clone https://github.com/Angoosh/EPP_cutter ~/cutter
 cd ~/cutter
 sudo sh install.sh
 ```
-<br />
-**Supported distros:** <br />
-<br />
+
+**Supported distros:** 
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ubuntu 16.04 and up<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Raspbian Stretch and up <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Arch Linux <br />

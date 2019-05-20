@@ -1,9 +1,9 @@
 # EPP_cutter
-Final exam project<br />
-Contains controlling app and gcode sender.<br />
-CAM is here: https://bitbucket.org/Zbynek_Dostal/cam-for-hot-wire <br />
-<br />
-## Installation:<br />
+Final exam project
+Contains controlling app and gcode sender.
+CAM is here: https://bitbucket.org/Zbynek_Dostal/cam-for-hot-wire 
+
+## Installation:
 ```
 git clone https://github.com/Angoosh/EPP_cutter ~/cutter
 cd ~/cutter

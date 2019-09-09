@@ -6,7 +6,7 @@ def glob():
     mode = "ABS"            #default mode for positioning 
     travel = 10.0           #default mode for travel in mm
     negtravel = -10.0       #default mode for negative travel in mm
-    sender = "sender.py"    #sender program to use (sender.py or sender-ex.py)
+    sender = "sender-log.py"    #sender program to use (sender.py or sender-log.py)
     motorsteps = 200        #steps per rotation of used motor
     microstepping = 128     #supplied microstepping - 1-256
     screwpitch = 4          #screw pitch in mm

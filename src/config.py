@@ -48,5 +48,5 @@ def func():
         sleep(0.001)
     ser.close()
     
-if __name__ == "main":
+if __name__ == "__main__":
     func()

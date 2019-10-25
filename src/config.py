@@ -47,4 +47,6 @@ def func():
         ser.write(x)
         sleep(0.001)
     ser.close()
-#func()
+    
+if __name__ == "main":
+    func()

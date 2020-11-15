@@ -140,6 +140,7 @@ def cli(x):
                   it must be in form: <first command> ; <second command> ; ...
                   
     Default port is /dev/ttyACM0
+    dimensions: X,A = 890;Y,B = 415
     """
     t = x
     global mode
